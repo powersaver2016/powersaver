@@ -8,10 +8,10 @@
         <item>推荐</item>
     </string-array>
     <string-array name="general_viewpage_arrays">
-        <item>资讯</item>
-        <item>博客</item>
-        <item>问答</item>
-        <item>活动</item>
+        <item>统计</item>
+        <item>电池</item>
+        <item>CPU</item>
+        <item>排行</item>
     </string-array>
     <string-array name="tweets_viewpage_arrays">
         <item>最新动弹</item>
