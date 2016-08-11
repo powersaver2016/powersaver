@@ -1,14 +1,11 @@
 package com.shane.powersaver.ui;
 
-import android.content.IntentFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,19 +16,28 @@ import android.widget.Toast;
 import com.shane.powersaver.R;
 import com.shane.powersaver.interf.BaseViewInterface;
 import com.shane.powersaver.interf.OnTabReselectListener;
+import com.shane.powersaver.util.LogUtil;
+import com.shane.powersaver.util.RootShell;
 import com.shane.powersaver.widget.MyFragmentTabHost;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
 /**
- * Created by shane on 16-8-7.
+ * LogUtil
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07 18:00
+ *
  */
 public class MainActivity extends AppCompatActivity  implements
         TabHost.OnTabChangeListener, BaseViewInterface, View.OnClickListener,
         View.OnTouchListener {
-
+    private static final String TAG = MainActivity.class.getSimpleName();
     private long mBackPressedTime;
 
     @Bind(android.R.id.tabhost)
@@ -51,6 +57,13 @@ public class MainActivity extends AppCompatActivity  implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_power_main);
         ButterKnife.bind(this);
+        LogUtil.i(TAG, "phoneRooted: " + RootShell.getInstance().phoneRooted());
+        LogUtil.i(TAG, "hasRootPermissions: " + RootShell.getInstance().hasRootPermissions());
+        List<String> res = RootShell.getInstance().run("dumpsys batterystats");
+//        for (String item : res) {
+//            LogUtil.i(TAG, item);
+//        }
+        LogUtil.i(TAG, "SIZE:" + res.size());
         initView();
     }
 
