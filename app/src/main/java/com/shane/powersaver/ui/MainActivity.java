@@ -6,6 +6,7 @@ import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,7 +14,11 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shane.android.common.utils.SysUtils;
+import com.shane.powersaver.AppContext;
 import com.shane.powersaver.R;
+import com.shane.powersaver.bean.kernel.SummaryStatsDumpsys;
+import com.shane.powersaver.bean.kernel.WakeupSources;
 import com.shane.powersaver.interf.BaseViewInterface;
 import com.shane.powersaver.interf.OnTabReselectListener;
 import com.shane.powersaver.util.LogUtil;
@@ -59,11 +64,33 @@ public class MainActivity extends AppCompatActivity  implements
         ButterKnife.bind(this);
         LogUtil.i(TAG, "phoneRooted: " + RootShell.getInstance().phoneRooted());
         LogUtil.i(TAG, "hasRootPermissions: " + RootShell.getInstance().hasRootPermissions());
-        List<String> res = RootShell.getInstance().run("dumpsys batterystats");
+        AppContext.DEBUG = true;
+//        WakeupSources.parseWakeupSources(this);
+//        SummaryStatsDumpsys.getSummaryStats(true, true, true);
+//        List<String> res = RootShell.getInstance().run("dumpsys batterystats");
 //        for (String item : res) {
 //            LogUtil.i(TAG, item);
 //        }
-        LogUtil.i(TAG, "SIZE:" + res.size());
+//        LogUtil.i(TAG, "SIZE:" + res.size());
+        // show install as system app screen if root available but perms missing
+        if (RootShell.getInstance().hasRootPermissions() && !SysUtils.hasBatteryStatsPermission(this))
+        {
+            // attempt to set perms using pm-comand
+            Log.i(TAG, "attempting to grant perms with 'pm grant'");
+
+            String pkg = this.getPackageName();
+            RootShell.getInstance().run("pm grant " + pkg + " android.permission.BATTERY_STATS");
+
+            Toast.makeText(this, getString(R.string.info_deleting_refs), Toast.LENGTH_SHORT).show();
+            if (SysUtils.hasBatteryStatsPermission(this))
+            {
+                Log.i(TAG, "succeeded");
+            }
+            else
+            {
+                Log.i(TAG, "failed");
+            }
+        }
         initView();
     }
 

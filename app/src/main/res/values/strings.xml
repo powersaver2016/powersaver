@@ -50,4 +50,5 @@
     <string name="footer_type_not_more">没有更多数据</string>
 
     <string name="tip_double_click_exit">再次点击退出powersaver</string>
+    <string name="info_deleting_refs">正删除并重置设置</string>
 </resources>

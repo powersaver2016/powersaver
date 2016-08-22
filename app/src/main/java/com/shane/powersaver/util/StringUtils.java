@@ -1,16 +1,20 @@
 package com.shane.powersaver.util;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
+import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -21,6 +25,8 @@ import java.util.regex.Pattern;
  * @created 2012-3-21
  */
 public class StringUtils {
+    private static String TAG = "StringUtils";
+
     private final static Pattern emailer = Pattern
             .compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
 
@@ -300,18 +306,19 @@ public class StringUtils {
 
     /**
      * 是否是相同的一天
+     *
      * @param sDate1 sDate1
      * @param sDate2 sDate2
      * @return
      */
-    public static boolean isSameDay(String sDate1,String sDate2){
-        if(TextUtils.isEmpty(sDate1) || TextUtils.isEmpty(sDate2)){
+    public static boolean isSameDay(String sDate1, String sDate2) {
+        if (TextUtils.isEmpty(sDate1) || TextUtils.isEmpty(sDate2)) {
             return false;
         }
         boolean b = false;
         Date date1 = toDate(sDate1);
         Date date2 = toDate(sDate2);
-        if(date1!= null && date2 != null){
+        if (date1 != null && date2 != null) {
             String d1 = dateFormater2.get().format(date1);
             String d2 = dateFormater2.get().format(date2);
             if (d1.equals(d2)) {
@@ -594,6 +601,90 @@ public class StringUtils {
     public static String getDataTime(String format) {
         SimpleDateFormat df = new SimpleDateFormat(format);
         return df.format(new Date());
+    }
+
+    public static String join(String[] array, String sep, boolean merge) {
+        String ret = "";
+        for (int i = 0; i < array.length; i++) {
+            if (ret.equals("")) {
+                ret = array[i];
+            } else {
+                if (merge) {
+                    // check if the string is alread present
+                    if (ret.indexOf(array[i]) == -1) {
+                        // add
+                        ret += sep + array[i];
+                    }
+                } else {
+                    ret += sep + array[i];
+                }
+            }
+        }
+        return ret;
+    }
+
+    static Pattern emailPattern = Pattern.compile("(.*/)([A-Za-z0-9._%-+]+)@([a-z0-9.-]+\\.[a-z]{2,4})(.*)");
+    static Pattern accountnamePattern = Pattern.compile("(.*\\{name\\=)(.*)(\\,.*)");
+
+    public static String maskAccountInfo(String str) {
+        String ret = str;
+
+        String serial = "";
+
+        try {
+            Class<?> c = Class.forName("android.os.SystemProperties");
+            Method get = c.getMethod("get", String.class);
+            serial = (String) get.invoke(c, "ro.serialno");
+        } catch (Exception ignored) {
+        }
+
+        Matcher email = emailPattern.matcher(str);
+        if (email.find()) {
+            String strName = email.group(2);
+            try {
+                // generate some long noise
+                byte[] bytesOfSerial = serial.getBytes("UTF-8");
+                MessageDigest mdSha = MessageDigest.getInstance("SHA-256");
+                byte[] theShaDigest = mdSha.digest(bytesOfSerial);
+                StringBuffer sb = new StringBuffer();
+                for (int i = 0; i < theShaDigest.length; ++i) {
+                    sb.append(Integer.toHexString((theShaDigest[i] & 0xFF) | 0x100).substring(1, 3));
+                }
+                serial = sb.toString();
+
+                byte[] bytesOfMessage = strName.concat(serial).getBytes("UTF-8");
+
+                MessageDigest md = MessageDigest.getInstance("MD5");
+                byte[] thedigest = md.digest(bytesOfMessage);
+                sb = new StringBuffer();
+                for (int i = 0; i < thedigest.length; ++i) {
+                    sb.append(Integer.toHexString((thedigest[i] & 0xFF) | 0x100).substring(1, 3));
+                }
+                ret = email.group(1) + sb.toString() + "@" + email.group(3) + email.group(4);
+            } catch (Exception e) {
+                Log.e(TAG, "An error occured: " + e.getMessage());
+            }
+
+        } else {
+            Matcher account = accountnamePattern.matcher(str);
+            if (account.find()) {
+                String strName = account.group(2);
+                try {
+                    byte[] bytesOfMessage = strName.getBytes("UTF-8");
+
+                    MessageDigest md = MessageDigest.getInstance("MD5");
+                    byte[] thedigest = md.digest(bytesOfMessage);
+                    StringBuffer sb = new StringBuffer();
+                    for (int i = 0; i < thedigest.length; ++i) {
+                        sb.append(Integer.toHexString((thedigest[i] & 0xFF) | 0x100).substring(1, 3));
+                    }
+                    ret = account.group(1) + sb.toString() + account.group(3);
+                } catch (Exception e) {
+                    Log.e(TAG, "An error occured: " + e.getMessage());
+                }
+            }
+        }
+        return ret;
     }
 
 }
