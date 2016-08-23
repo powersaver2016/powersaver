@@ -16,6 +16,7 @@ import com.shane.android.common.utils.DateUtils;
 import com.shane.android.system.Device;
 import com.shane.powersaver.AppContext;
 import com.shane.powersaver.base.BaseFragment;
+import com.shane.powersaver.bean.base.NativeKernelWakelock;
 import com.shane.powersaver.bean.base.StatElement;
 import com.shane.powersaver.bean.base.Wakelock;
 import com.shane.powersaver.bean.kernel.BatteryStatsHelper;
@@ -24,6 +25,7 @@ import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypesLolipop;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by shane on 16-8-22.
@@ -34,6 +36,7 @@ public class BatteryHistorian2 extends BaseFragment {
     private TextView mTextView;
     private Context mContext;
     private ArrayList<String> mResultStats;
+    private static final int TOP = 6;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -141,10 +144,17 @@ public class BatteryHistorian2 extends BaseFragment {
 
         ArrayList<StatElement> kernelWakelocks = mStats.getKernelWakelockStats(mContext, statsType, true);
         ArrayList<StatElement> partialWakelocks = mStats.getWakelockStats(mContext, BatteryStatsTypes.WAKE_TYPE_PARTIAL, statsType, 0);
+        ArrayList<Wakelock> partialWakelocks2 = new ArrayList<Wakelock>();
+        ArrayList<NativeKernelWakelock> kernelWakelocks2 = new ArrayList<NativeKernelWakelock>();
         long totalPartitalWakelockTime = 0;
         for (StatElement se : partialWakelocks) {
             Wakelock wl = (Wakelock)se;
             totalPartitalWakelockTime += wl.getDuration();
+            partialWakelocks2.add(wl);
+        }
+        for (StatElement se : kernelWakelocks) {
+            NativeKernelWakelock wl = (NativeKernelWakelock)se;
+            kernelWakelocks2.add(wl);
         }
 
         long kernelOverheadTime = screenOffUptime - totalPartitalWakelockTime;
@@ -157,7 +167,22 @@ public class BatteryHistorian2 extends BaseFragment {
         mResultStats.add("Mobile Active Time:" + DateUtils.formatDuration(bsh.getMobileActiveTime()) + "\n");
         mResultStats.add("Signal Scanning Time:" + DateUtils.formatDuration(bsh.getPhoneSignalScanningTime()) + "\n");
 
-        long timePhoneOn = mStats.getPhoneOnTime(batteryRealtime, statsType) / 1000;
+        mResultStats.add("==========================================================\n");
+        mResultStats.add("Kernel wakesources:\n");
+        Collections.sort(kernelWakelocks2);
+        for (int i = 0; i < TOP && i < kernelWakelocks2.size(); i++) {
+            NativeKernelWakelock wl = kernelWakelocks2.get(i);
+            mResultStats.add(wl.getName() + "\t " + DateUtils.formatDuration(wl.getDuration()) + " \t" + wl.getCount() + "\n");
+        }
+
+        mResultStats.add("==========================================================\n");
+        mResultStats.add("Userspace partial wakelocks:\n");
+        Collections.sort(partialWakelocks2);
+        for (int i = 0; i < TOP && i < partialWakelocks2.size(); i++) {
+            Wakelock wl = partialWakelocks2.get(i);
+            mResultStats.add(wl.getName() + "\t uid(" + wl.getuid() + ")\t" + DateUtils.formatDuration(wl.getDuration()) + "\t" + wl.getCount() + "\n");
+        }
+
 
 
 
