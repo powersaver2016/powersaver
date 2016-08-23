@@ -12,9 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.shane.android.common.utils.DateUtils;
+import com.shane.android.system.Device;
 import com.shane.powersaver.AppContext;
 import com.shane.powersaver.base.BaseFragment;
 import com.shane.powersaver.bean.base.StatElement;
+import com.shane.powersaver.bean.base.Wakelock;
+import com.shane.powersaver.bean.kernel.BatteryStatsHelper;
 import com.shane.powersaver.bean.kernel.BatteryStatsProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypesLolipop;
@@ -62,6 +66,7 @@ public class BatteryHistorian2 extends BaseFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        mTextView.setText("");
         try {
             requestData(true);
             fillUI();
@@ -93,10 +98,13 @@ public class BatteryHistorian2 extends BaseFragment {
         // List to store the other usages to
         ArrayList<StatElement> myUsages = new ArrayList<StatElement>();
         BatteryStatsProxy mStats = BatteryStatsProxy.getInstance(mContext);
+
+        mResultStats.add("Aggregated Stats:\n");
+        mResultStats.add("Device:" + Device.getInstance(mContext).getDeviceModel() + ", version:" + Device.getDeviceVersion() + "\n");
+        mResultStats.add("Build:" + Device.getDeviceBuild() + "\n");
+
         long rawRealtime = SystemClock.elapsedRealtime() * 1000;
-
         long uptime = SystemClock.uptimeMillis();
-
         long elaspedRealtime = rawRealtime / 1000;
         long batteryRealtime = 0;
         try {
@@ -114,15 +122,46 @@ public class BatteryHistorian2 extends BaseFragment {
         }
 
         long whichRealtime = mStats.computeBatteryRealtime(rawRealtime, statsType) / 1000;
-
-        long timeBatteryUp = mStats.computeBatteryUptime(
-                SystemClock.uptimeMillis() * 1000, statsType) / 1000;
         long timeScreenOn = mStats.getScreenOnTime(batteryRealtime, statsType) / 1000;
-        long timePhoneOn = mStats.getPhoneOnTime(batteryRealtime, statsType) / 1000;
-        if (AppContext.DEBUG) {
-            mResultStats.add("whichRealtime = " + whichRealtime + " batteryRealtime = " + batteryRealtime + " timeBatteryUp=" + timeBatteryUp);
-            mResultStats.add("\ttimeScreenOn = " + timeScreenOn + " timePhoneOn = " + timePhoneOn);
+        long timeBatteryUp = mStats.computeBatteryUptime(SystemClock.uptimeMillis() * 1000, statsType) / 1000;
+        long screenOffUptime = timeBatteryUp - timeScreenOn;
+        long timeScreenOff = whichRealtime - timeScreenOn;
+        int screenOnDischarged = mStats.getDischargeAmountScreenOnSinceCharge();
+        int screenOffDischarged = mStats.getDischargeAmountScreenOffSinceCharge();
+        double screenOnDischargedRate = (screenOnDischarged * 1000 * 3600) / (double)timeScreenOn;
+        double screenOffDischargedRate = (screenOffDischarged * 1000 * 3600) / (double)timeScreenOff;
+        String screenOnDischargedStr = String.format("%.2f (Discharged: %d%%)", screenOnDischargedRate, screenOnDischarged);
+        String screenOffDischargedStr = String.format("%.2f (Discharged: %d%%)", screenOffDischargedRate, screenOffDischarged);
+
+        mResultStats.add("Duration / Realtime:" + DateUtils.formatDuration(whichRealtime) + "\n");
+        mResultStats.add("Screen On Time:" + DateUtils.formatDuration(timeScreenOn) + "\n");
+        mResultStats.add("Screen Off Uptime:" + DateUtils.formatDuration(screenOffUptime) + "\n");
+        mResultStats.add("Screen On Discharge Rate (%/hr):" + screenOnDischargedStr + "\n");
+        mResultStats.add("Screen Off Discharge Rate (%/hr):" + screenOffDischargedStr + "\n");
+
+        ArrayList<StatElement> kernelWakelocks = mStats.getKernelWakelockStats(mContext, statsType, true);
+        ArrayList<StatElement> partialWakelocks = mStats.getWakelockStats(mContext, BatteryStatsTypes.WAKE_TYPE_PARTIAL, statsType, 0);
+        long totalPartitalWakelockTime = 0;
+        for (StatElement se : partialWakelocks) {
+            Wakelock wl = (Wakelock)se;
+            totalPartitalWakelockTime += wl.getDuration();
         }
+
+        long kernelOverheadTime = screenOffUptime - totalPartitalWakelockTime;
+        mResultStats.add("Userspace Wakelock Time:" + DateUtils.formatDuration(totalPartitalWakelockTime) + "\n");
+        mResultStats.add("Kernel Overhead Time:" + DateUtils.formatDuration(kernelOverheadTime) + "\n");
+
+        BatteryStatsHelper bsh = new BatteryStatsHelper(mContext, statsType);
+        mResultStats.add("Mobile Total KBs:" + bsh.computeMobileTotalKB() + "\n");
+        mResultStats.add("WiFi Total KBs:" + bsh.computeWifiTotalKB() + "\n");
+        mResultStats.add("Mobile Active Time:" + DateUtils.formatDuration(bsh.getMobileActiveTime()) + "\n");
+        mResultStats.add("Signal Scanning Time:" + DateUtils.formatDuration(bsh.getPhoneSignalScanningTime()) + "\n");
+
+        long timePhoneOn = mStats.getPhoneOnTime(batteryRealtime, statsType) / 1000;
+
+
+
+
     }
 
     @Override

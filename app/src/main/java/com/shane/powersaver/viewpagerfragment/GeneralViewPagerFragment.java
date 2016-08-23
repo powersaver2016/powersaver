@@ -12,6 +12,7 @@ import com.shane.powersaver.base.BaseViewPagerFragment;
 import com.shane.powersaver.bean.NewsList;
 //import net.oschina.app.fragment.general.BlogFragment;
 //import net.oschina.app.fragment.general.EventFragment;
+import com.shane.powersaver.fragment.BatteryHistorian2;
 import com.shane.powersaver.fragment.general.GeneralListFragment;
 import com.shane.powersaver.fragment.general.NewsFragment;
 //import net.oschina.app.fragment.general.QuestionFragment;
@@ -38,7 +39,7 @@ public class GeneralViewPagerFragment extends BaseViewPagerFragment implements
         String[] title = getResources().getStringArray(
                 R.array.general_viewpage_arrays);
 
-        adapter.addTab(title[0], "news", NewsFragment.class,
+        adapter.addTab(title[0], "news", BatteryHistorian2.class,
                 getBundle(NewsList.CATALOG_ALL));
         adapter.addTab(title[1], "latest_blog", NewsFragment.class,
                 getBundle(NewsList.CATALOG_WEEK));

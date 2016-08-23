@@ -109,7 +109,7 @@ public class BatteryStatsProxy {
      */
     private BatteryStatsProxy(Context context) {
         /*
-         * As BatteryStats is a service we need to get a binding using the IBatteryStats.Stub.getStatistics()
+		 * As BatteryStats is a service we need to get a binding using the IBatteryStats.Stub.getStatistics()
 		 * method (using reflection).
 		 * If we would be using a public API the code would look like:
 		 * @see com.android.settings.fuelgauge.PowerUsageSummary.java 
@@ -295,7 +295,7 @@ public class BatteryStatsProxy {
     /**
      * Returns the total, last, or current battery realtime in microseconds.
      *
-     * @param curTime the current elapsed realtime in microseconds.
+     * @param curTime    the current elapsed realtime in microseconds.
      */
     public Long getBatteryRealtime(long curTime) throws BatteryInfoUnavailableException {
         Long ret = new Long(0);
@@ -407,6 +407,7 @@ public class BatteryStatsProxy {
 
     /**
      * Returns if phone is on battery.
+     *
      */
     public boolean getIsOnBattery() throws BatteryInfoUnavailableException {
         boolean ret = true;
@@ -1088,7 +1089,7 @@ public class BatteryStatsProxy {
     /**
      * Returns the total, last, or current bluetooth on time in microseconds.
      *
-     * @param iStatsType one of STATS_TOTAL, STATS_LAST, or STATS_CURRENT.
+     * @param iStatsType      one of STATS_TOTAL, STATS_LAST, or STATS_CURRENT.
      */
     public Long getBluetoothInStateTime(int state, int iStatsType) throws BatteryInfoUnavailableException {
         Long ret = new Long(0);
@@ -1286,11 +1287,51 @@ public class BatteryStatsProxy {
     /**
      * Returns the network activity
      *
+     * @param type
+     * @param iStatsType
+     * @return
+     */
+    public long getNetworkActivityBytes(int type, int iStatsType) throws BatteryInfoUnavailableException {
+        Long ret = new Long(0);
+
+        try {
+            //Parameters Types
+            @SuppressWarnings("rawtypes")
+            Class[] paramTypes = new Class[2];
+            paramTypes[0] = int.class;
+            paramTypes[1] = int.class;
+
+            @SuppressWarnings("unchecked")
+            Method method = m_ClassDefinition.getMethod("getNetworkActivityBytes", paramTypes);
+
+            //Parameters
+            Object[] params = new Object[2];
+            params[0] = new Integer(type);
+            params[1] = new Integer(iStatsType);
+
+            ret = (Long) method.invoke(m_Instance, params);
+
+        } catch (IllegalArgumentException e) {
+            throw e;
+        } catch (Exception e) {
+            ret = new Long(0);
+            Log.e(TAG, "An exception occured processing getNetworkActivityBytes. Message: " + e.getMessage());
+            Log.e(TAG, "Exception: " + Log.getStackTraceString(e));
+            throw new BatteryInfoUnavailableException();
+        }
+
+        return ret;
+    }
+
+
+    /**
+     * Returns the network activity
+     *
      * @param batteryRealtime
      * @param iStatsType
      * @return
      */
-    public long getNetworkActivityBytes(long batteryRealtime, int iStatsType) throws BatteryInfoUnavailableException {
+    public long getPhoneSignalScanningTime(long batteryRealtime, int iStatsType) throws BatteryInfoUnavailableException {
         Long ret = new Long(0);
 
         try {
@@ -1301,7 +1342,7 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getNetworkActivityBytes", paramTypes);
+            Method method = m_ClassDefinition.getMethod("getPhoneSignalScanningTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
@@ -1317,11 +1358,46 @@ public class BatteryStatsProxy {
             throw new BatteryInfoUnavailableException();
         }
 
-        return ret;
-
-
+        return ret/1000;
     }
 
+
+    /**
+     * Returns the network activity
+     *
+     * @param batteryRealtime
+     * @param iStatsType
+     * @return
+     */
+    public long getMobileRadioActiveTime(long batteryRealtime, int iStatsType) throws BatteryInfoUnavailableException {
+        Long ret = new Long(0);
+
+        try {
+            //Parameters Types
+            @SuppressWarnings("rawtypes")
+            Class[] paramTypes = new Class[2];
+            paramTypes[0] = long.class;
+            paramTypes[1] = int.class;
+
+            @SuppressWarnings("unchecked")
+            Method method = m_ClassDefinition.getMethod("getMobileRadioActiveTime", paramTypes);
+
+            //Parameters
+            Object[] params = new Object[2];
+            params[0] = new Long(batteryRealtime);
+            params[1] = new Integer(iStatsType);
+
+            ret = (Long) method.invoke(m_Instance, params);
+
+        } catch (IllegalArgumentException e) {
+            throw e;
+        } catch (Exception e) {
+            ret = new Long(0);
+            throw new BatteryInfoUnavailableException();
+        }
+
+        return ret/1000;
+    }
 
     /**
      * Returns the current battery percentage level if we are in a discharge cycle, otherwise
@@ -1333,6 +1409,54 @@ public class BatteryStatsProxy {
         try {
             @SuppressWarnings("unchecked")
             Method method = m_ClassDefinition.getMethod("getDischargeCurrentLevel");
+
+            Integer oRet = (Integer) method.invoke(m_Instance);
+            ret = oRet.intValue();
+
+        } catch (IllegalArgumentException e) {
+            throw e;
+        } catch (Exception e) {
+            ret = 0;
+            throw new BatteryInfoUnavailableException();
+        }
+
+        return ret;
+    }
+
+    /**
+     * Get the amount the battery has discharged while the screen was on,
+     * since the last time power was unplugged.
+     */
+    public int getDischargeAmountScreenOnSinceCharge() throws BatteryInfoUnavailableException {
+        int ret = 0;
+
+        try {
+            @SuppressWarnings("unchecked")
+            Method method = m_ClassDefinition.getMethod("getDischargeAmountScreenOnSinceCharge");
+
+            Integer oRet = (Integer) method.invoke(m_Instance);
+            ret = oRet.intValue();
+
+        } catch (IllegalArgumentException e) {
+            throw e;
+        } catch (Exception e) {
+            ret = 0;
+            throw new BatteryInfoUnavailableException();
+        }
+
+        return ret;
+    }
+
+    /**
+     * Get the amount the battery has discharged while the screen was off,
+     * since the last time the device was charged.
+     */
+    public int getDischargeAmountScreenOffSinceCharge() throws BatteryInfoUnavailableException {
+        int ret = 0;
+
+        try {
+            @SuppressWarnings("unchecked")
+            Method method = m_ClassDefinition.getMethod("getDischargeAmountScreenOffSinceCharge");
 
             Integer oRet = (Integer) method.invoke(m_Instance);
             ret = oRet.intValue();
@@ -1417,11 +1541,11 @@ public class BatteryStatsProxy {
     }
 
     /**
-     * Obtain the wakelock stats as a list of Wakelocks (@see com.asksven.android.common.privateapiproxies.Wakelock}
+     * Obtain the wakelock stats as a list of Wakelocks (@see Wakelock}
      *
      * @param context   a Context
-     * @param iWakeType a type of wakelock @see com.asksven.android.common.privateapiproxies.BatteryStatsTypes
-     * @param iStatType a type of stat @see com.asksven.android.common.privateapiproxies.BatteryStatsTypes
+     * @param iWakeType a type of wakelock @see BatteryStatsTypes
+     * @param iStatType a type of stat @see BatteryStatsTypes
      * @return a List of Wakelock s
      * @throws Exception
      */
@@ -1660,62 +1784,6 @@ public class BatteryStatsProxy {
                             + " [mTrackingReportedValues] = " + trackingReportedValuesVal);
                 }
 
-//            	
-//            	@SuppressWarnings("rawtypes")
-//				Class batteryStatsSamplingTimerClass = cl.loadClass("com.android.internal.os.BatteryStatsImpl$SamplingTimer");
-
-                //Parameters Types
-//				@SuppressWarnings("rawtypes")
-//				Class[] paramTypesGetTotalTimeLocked= new Class[2];
-//				paramTypesGetTotalTimeLocked[0]= long.class;
-//				paramTypesGetTotalTimeLocked[1]= int.class;
-//
-//				//Parameters
-//				Object[] paramGetTotalTimeLocked= new Object[2];
-//				paramGetTotalTimeLocked[0]= new Long(uSecBatteryTime);
-//				paramGetTotalTimeLocked[1]= new Integer(iStatType);
-//				
-//
-//				Method methodGetTotalTimeLocked = classSamplingTimer
-//						.getMethod("getTotalTimeLocked", paramTypesGetTotalTimeLocked);
-//
-//				//Parameters Types
-//				@SuppressWarnings("rawtypes")
-//				Class[] paramTypesGetCountLocked= new Class[1];
-//				paramTypesGetCountLocked[0]= int.class;
-//
-//				//Parameters
-//				Object[] paramGetCountLocked= new Object[1];
-//				paramGetCountLocked[0]= new Integer(iStatType);
-//
-//				Method methodGetCountLocked = classSamplingTimer
-//						.getMethod("getCountLocked", paramTypesGetCountLocked);
-//					
-//				
-//				Long wake = (Long) methodGetTotalTimeLocked.invoke(samplingTimer, paramGetTotalTimeLocked);
-//				
-//				Integer count = (Integer) methodGetCountLocked.invoke(samplingTimer, paramGetCountLocked);
-//				
-//				if (AppContext.DEBUG)
-//				{
-//					Log.d(TAG, "Kernel wakelock: " + wakelockEntry.getKey() + " wakelock [s] " + wake / 1000
-//							+ " count " + count);
-//				}
-
-                // public NativeKernelWakelock(String name, String details, int count, int expire_count, int wake_count,
-                // long active_since, long total_time, long sleep_time, long max_time, long last_change, long time)
-                //public KernelWakelock(String name, long duration, long time, int count)
-                // return the data depending on the method
-                //if (!bAlternate)
-                //{
-                //KernelWakelock myWl = new KernelWakelock(wakelockEntry.getKey(), wake / 1000, uSecBatteryTime / 1000, count);
-
-//					NativeKernelWakelock myWl = new NativeKernelWakelock(wakelockEntry.getKey() + " *api*", "", count.intValue(), 0, 0, 
-//							0L, wake/1000, wake/1000, 0L, 0L, uSecBatteryTime / 1000);
-//					myStats.add(myWl);	
-                //}
-//				else
-//				{
                 if (AppContext.DEBUG) {
                     Log.d(TAG, "Kernel wakelock: " + wakelockEntry.getKey() + " wakelock [s] " + currentReportedTotalTimeVal / 1000
                             + " count " + currentReportedCountVal);
@@ -1726,7 +1794,6 @@ public class BatteryStatsProxy {
                         currentReportedTotalTimeVal / 1000, currentReportedTotalTimeVal / 1000, 0L, 0L,
                         uSecBatteryTime / 1000);
                 myStats.add(myWl);
-//				}	
             }
         } catch (Exception e) {
             Log.e(TAG, "An exception occured in getKernelWakelockStats(). Message: " + e.getMessage() + ", cause: " + e.getCause().getMessage());
@@ -2107,7 +2174,7 @@ public class BatteryStatsProxy {
      * Obtain the network usage stats as a list of NetworkUsages (@see com.asksven.android.common.privateapiproxies.NetworkUsage}
      *
      * @param context   a Context
-     * @param iStatType a type of stat @see com.asksven.android.common.privateapiproxies.BatteryStatsTypes
+     * @param iStatType a type of stat @see BatteryStatsTypes
      * @return a List of NetworkUsage s
      * @throws Exception
      */
@@ -2588,7 +2655,6 @@ public class BatteryStatsProxy {
         }
         return myStats;
     }
-
 
 }
 

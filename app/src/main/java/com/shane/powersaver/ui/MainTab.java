@@ -15,7 +15,7 @@ public enum MainTab {
 			*/
 
     NEWS(0, R.string.main_tab_name_news, R.drawable.tab_icon_new,
-            BatteryHistorian2.class),
+            GeneralViewPagerFragment.class),
 
     TWEET(1, R.string.main_tab_name_tweet, R.drawable.tab_icon_tweet,
             GeneralViewPagerFragment.class),

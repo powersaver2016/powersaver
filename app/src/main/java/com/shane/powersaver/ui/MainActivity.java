@@ -37,9 +37,8 @@ import butterknife.ButterKnife;
  * @author shane（https://github.com/lxxgreat）
  * @version 1.0
  * @created 2016-08-07 18:00
- *
  */
-public class MainActivity extends AppCompatActivity  implements
+public class MainActivity extends AppCompatActivity implements
         TabHost.OnTabChangeListener, BaseViewInterface, View.OnClickListener,
         View.OnTouchListener {
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -73,8 +72,7 @@ public class MainActivity extends AppCompatActivity  implements
 //        }
 //        LogUtil.i(TAG, "SIZE:" + res.size());
         // show install as system app screen if root available but perms missing
-        if (RootShell.getInstance().hasRootPermissions() && !SysUtils.hasBatteryStatsPermission(this))
-        {
+        if (RootShell.getInstance().hasRootPermissions() && !SysUtils.hasBatteryStatsPermission(this)) {
             // attempt to set perms using pm-comand
             Log.i(TAG, "attempting to grant perms with 'pm grant'");
 
@@ -82,12 +80,9 @@ public class MainActivity extends AppCompatActivity  implements
             RootShell.getInstance().run("pm grant " + pkg + " android.permission.BATTERY_STATS");
 
             Toast.makeText(this, getString(R.string.info_deleting_refs), Toast.LENGTH_SHORT).show();
-            if (SysUtils.hasBatteryStatsPermission(this))
-            {
+            if (SysUtils.hasBatteryStatsPermission(this)) {
                 Log.i(TAG, "succeeded");
-            }
-            else
-            {
+            } else {
                 Log.i(TAG, "failed");
             }
         }
@@ -156,6 +151,7 @@ public class MainActivity extends AppCompatActivity  implements
             mTabHost.getTabWidget().getChildAt(i).setOnTouchListener(this);
         }
     }
+
     @Override
     public void initData() {
     }

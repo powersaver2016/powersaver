@@ -72,6 +72,12 @@ public class BatteryStatsTypes {
     public static final int CONTROLLER_TX_TIME = 2;
     public static final int CONTROLLER_ENERGY = 3;
 
+    public static final int NETWORK_MOBILE_RX_DATA = 0;
+    public static final int NETWORK_MOBILE_TX_DATA = 1;
+    public static final int NETWORK_WIFI_RX_DATA = 2;
+    public static final int NETWORK_WIFI_TX_DATA = 3;
+    public static final int NUM_NETWORK_ACTIVITY_TYPES = NETWORK_WIFI_TX_DATA + 1;
+
     /**
      * Enum of valid wakelock types
      */
