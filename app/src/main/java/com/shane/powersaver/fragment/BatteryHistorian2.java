@@ -16,10 +16,13 @@ import com.shane.android.common.utils.DateUtils;
 import com.shane.android.system.Device;
 import com.shane.powersaver.AppContext;
 import com.shane.powersaver.base.BaseFragment;
+import com.shane.powersaver.bean.base.BatterySipper;
+import com.shane.powersaver.bean.base.Constants;
 import com.shane.powersaver.bean.base.NativeKernelWakelock;
 import com.shane.powersaver.bean.base.StatElement;
 import com.shane.powersaver.bean.base.Wakelock;
 import com.shane.powersaver.bean.kernel.BatteryStatsHelper;
+import com.shane.powersaver.bean.kernel.BatteryStatsHelperProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypesLolipop;
@@ -167,7 +170,20 @@ public class BatteryHistorian2 extends BaseFragment {
         mResultStats.add("Mobile Active Time:" + DateUtils.formatDuration(bsh.getMobileActiveTime()) + "\n");
         mResultStats.add("Signal Scanning Time:" + DateUtils.formatDuration(bsh.getPhoneSignalScanningTime()) + "\n");
 
-        mResultStats.add("==========================================================\n");
+        BatteryStatsHelperProxy bshp = BatteryStatsHelperProxy.getInstance(mContext);
+        bshp.create(mStats.getBatteryStatsInstance());
+        bshp.refreshStats(statsType, -1);
+        ArrayList<BatterySipper> sippers = bshp.getUsageList();
+
+        mResultStats.add("========================================\n");
+        mResultStats.add("Top power consuming entities:\n");
+        Collections.sort(sippers);
+        for (int i = 0; i < TOP && i < sippers.size(); i++) {
+            BatterySipper sipper = sippers.get(i);
+            mResultStats.add(sipper.name + "\t " + Constants.DOUBLE_FORMAT_2.format(sipper.totalPowerMah) + "\n");
+        }
+
+        mResultStats.add("========================================\n");
         mResultStats.add("Kernel wakesources:\n");
         Collections.sort(kernelWakelocks2);
         for (int i = 0; i < TOP && i < kernelWakelocks2.size(); i++) {
@@ -175,7 +191,7 @@ public class BatteryHistorian2 extends BaseFragment {
             mResultStats.add(wl.getName() + "\t " + DateUtils.formatDuration(wl.getDuration()) + " \t" + wl.getCount() + "\n");
         }
 
-        mResultStats.add("==========================================================\n");
+        mResultStats.add("========================================\n");
         mResultStats.add("Userspace partial wakelocks:\n");
         Collections.sort(partialWakelocks2);
         for (int i = 0; i < TOP && i < partialWakelocks2.size(); i++) {

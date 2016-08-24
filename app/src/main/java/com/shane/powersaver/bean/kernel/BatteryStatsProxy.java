@@ -254,6 +254,15 @@ public class BatteryStatsProxy {
         return m_Instance == null;
     }
 
+
+    public Object getBatteryStatsInstance() {
+        return m_Instance;
+    }
+
+    public Class getBatteryStatsClass() {
+        return m_ClassDefinition;
+    }
+
     /**
      * Returns the total, last, or current battery realtime in microseconds.
      *
