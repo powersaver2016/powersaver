@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 
 import com.shane.powersaver.bean.base.BatterySipper;
+import com.shane.powersaver.bean.base.UidInfo;
+import com.shane.powersaver.bean.base.UidNameResolver;
 import com.shane.powersaver.util.LogUtil;
 
 import java.lang.reflect.Constructor;
@@ -97,16 +99,37 @@ public final class BatteryStatsHelperProxy {
             ClassLoader cl = mContext.getClassLoader();
             Class batterySipper = cl.loadClass("com.android.internal.os.BatterySipper");
             Class drainType = cl.loadClass("com.android.internal.os.BatterySipper$DrainType");
+            Class iBatteryStatsUid = cl.loadClass("com.android.internal.os.BatteryStatsImpl$Uid");
+            Method methodGetUid = iBatteryStatsUid.getMethod("getUid");
 
             Method method = mClassDefinition.getDeclaredMethod("getUsageList", null);
             ArrayList<Object> sippers = (ArrayList<Object>)method.invoke(mInstance, null);
 
             Field totalPowerMah = batterySipper.getField("totalPowerMah");
             Field drainTypeField = batterySipper.getField("drainType");
+            Field uidObj = batterySipper.getField("uidObj");
+
+            BatterySipper.sBatteryCapacity = PowerProfileProxy.getInstance(mContext).getBatteryCapacity();
+
             for(Object obj : sippers) {
                 double tpm = (double)totalPowerMah.get(obj);
                 String name = drainTypeField.get(obj).toString();
                 BatterySipper bs = new BatterySipper(name, tpm);
+
+                Object myUid = uidObj.get(obj);
+                Integer uid = 0;
+                if (myUid != null) {
+                    uid = (Integer) methodGetUid.invoke(myUid);
+                }
+
+                bs.setUid(uid);
+                UidInfo myInfo = UidNameResolver.getInstance(mContext).getNameForUid(uid);
+                bs.setUidInfo(myInfo);
+                bs.drainType = BatterySipper.sDrainTypeMap.get(name);
+                if (bs.drainType == BatterySipper.DrainType.APP) {
+                    bs.name = bs.getPackageName();
+                }
+
                 myStats.add(bs);
             }
 

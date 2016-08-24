@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by shane on 16-8-24.
@@ -13,6 +14,7 @@ public class BatterySipper extends StatElement implements Comparable<BatterySipp
      * the tag for logging
      */
     private static transient final String TAG = BatterySipper.class.getSimpleName();
+    public static transient double sBatteryCapacity;
 
     public double totalPowerMah;
 
@@ -20,6 +22,7 @@ public class BatterySipper extends StatElement implements Comparable<BatterySipp
      * the name of the object
      */
     public String name;
+    public DrainType drainType;
 
     public enum DrainType {
         IDLE,
@@ -34,6 +37,21 @@ public class BatterySipper extends StatElement implements Comparable<BatterySipp
         UNACCOUNTED,
         OVERCOUNTED,
         CAMERA
+    }
+
+    public static HashMap<String, DrainType> sDrainTypeMap = new HashMap<String, DrainType>();
+
+    static {
+        sDrainTypeMap.put("IDLE", DrainType.IDLE);
+        sDrainTypeMap.put("CELL", DrainType.CELL);
+        sDrainTypeMap.put("PHONE", DrainType.PHONE);
+        sDrainTypeMap.put("WIFI", DrainType.WIFI);
+        sDrainTypeMap.put("BLUETOOTH", DrainType.BLUETOOTH);
+        sDrainTypeMap.put("FLASHLIGHT", DrainType.FLASHLIGHT);
+        sDrainTypeMap.put("SCREEN", DrainType.SCREEN);
+        sDrainTypeMap.put("UNACCOUNTED", DrainType.UNACCOUNTED);
+        sDrainTypeMap.put("OVERCOUNTED", DrainType.OVERCOUNTED);
+        sDrainTypeMap.put("CAMERA", DrainType.CAMERA);
     }
 
     public BatterySipper(String strName, double totalPower) {
@@ -62,11 +80,30 @@ public class BatterySipper extends StatElement implements Comparable<BatterySipp
      * @return the data
      */
     public String getData(long totalTime) {
-        return String.valueOf(totalPowerMah);
+        StringBuilder sb = new StringBuilder();
+        if (this.getuid() > Constants.FIRST_APPLICATION_UID) {
+            sb.append(this.getPackageName());
+        } else {
+            sb.append(name);
+        }
+
+        sb.append("\t\t");
+        sb.append("uid(" + getuid() + ")\t\t");
+
+        sb.append(this.formatRatio((long) totalPowerMah, (long) sBatteryCapacity));
+        return sb.toString();
     }
 
     public int compareTo(BatterySipper o) {
         // we want to sort in descending order
         return ((int) (o.totalPowerMah - this.totalPowerMah));
+    }
+
+    public String getPackageName() {
+        if (m_uidInfo != null) {
+            return m_uidInfo.getNamePackage();
+        } else {
+            return "";
+        }
     }
 }

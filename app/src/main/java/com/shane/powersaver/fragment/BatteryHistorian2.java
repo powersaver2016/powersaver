@@ -180,7 +180,7 @@ public class BatteryHistorian2 extends BaseFragment {
         Collections.sort(sippers);
         for (int i = 0; i < TOP && i < sippers.size(); i++) {
             BatterySipper sipper = sippers.get(i);
-            mResultStats.add(sipper.name + "\t " + Constants.DOUBLE_FORMAT_2.format(sipper.totalPowerMah) + "\n");
+            mResultStats.add(sipper.getData(0) + "\n");
         }
 
         mResultStats.add("========================================\n");
