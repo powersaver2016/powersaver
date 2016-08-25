@@ -50,7 +50,7 @@ public class PowerProfileProxy {
     public double getBatteryCapacity() {
         try {
             Method method = mClassDefinition.getMethod("getBatteryCapacity");
-            return (Double)method.invoke(mInstance, null);
+            return (Double)method.invoke(mInstance, (Class[])null);
         } catch (Exception e) {
             return 0;
         }

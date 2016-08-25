@@ -102,8 +102,8 @@ public final class BatteryStatsHelperProxy {
             Class iBatteryStatsUid = cl.loadClass("com.android.internal.os.BatteryStatsImpl$Uid");
             Method methodGetUid = iBatteryStatsUid.getMethod("getUid");
 
-            Method method = mClassDefinition.getDeclaredMethod("getUsageList", null);
-            ArrayList<Object> sippers = (ArrayList<Object>)method.invoke(mInstance, null);
+            Method method = mClassDefinition.getDeclaredMethod("getUsageList", (Class[])null);
+            ArrayList<Object> sippers = (ArrayList<Object>)method.invoke(mInstance, (Class[])null);
 
             Field totalPowerMah = batterySipper.getField("totalPowerMah");
             Field drainTypeField = batterySipper.getField("drainType");

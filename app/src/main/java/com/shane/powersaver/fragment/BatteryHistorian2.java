@@ -174,10 +174,10 @@ public class BatteryHistorian2 extends BaseFragment {
         bshp.create(mStats.getBatteryStatsInstance());
         bshp.refreshStats(statsType, -1);
         ArrayList<BatterySipper> sippers = bshp.getUsageList();
+        Collections.sort(sippers);
 
         mResultStats.add("========================================\n");
         mResultStats.add("Top power consuming entities:\n");
-        Collections.sort(sippers);
         for (int i = 0; i < TOP && i < sippers.size(); i++) {
             BatterySipper sipper = sippers.get(i);
             mResultStats.add(sipper.getData(0) + "\n");

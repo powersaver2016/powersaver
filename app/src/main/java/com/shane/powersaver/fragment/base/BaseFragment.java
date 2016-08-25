@@ -1,5 +1,6 @@
 package com.shane.powersaver.fragment.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
 import com.shane.powersaver.util.ImageLoader;
+import com.shane.powersaver.util.LogUtil;
 
 import java.io.Serializable;
 
@@ -25,14 +27,17 @@ import butterknife.ButterKnife;
 
 @SuppressWarnings("WeakerAccess")
 public abstract class BaseFragment extends Fragment {
+    private static final String TAG = BaseFragment.class.getSimpleName();
+
     protected View mRoot;
     protected Bundle mBundle;
     private RequestManager mImgLoader;
-
+    protected Context mContext;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getContext();
         mBundle = getArguments();
         initBundle(mBundle);
     }
@@ -43,8 +48,9 @@ public abstract class BaseFragment extends Fragment {
                              Bundle savedInstanceState) {
         if (mRoot != null) {
             ViewGroup parent = (ViewGroup) mRoot.getParent();
-            if (parent != null)
+            if (parent != null) {
                 parent.removeView(mRoot);
+            }
         } else {
             mRoot = inflater.inflate(getLayoutId(), container, false);
             ButterKnife.bind(this, mRoot);
@@ -81,7 +87,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     protected void initData() {
-
+        LogUtil.d(TAG, "initData");
     }
 
     protected <T extends View> T findView(int viewId) {

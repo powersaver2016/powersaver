@@ -16,6 +16,7 @@ import com.shane.powersaver.fragment.BatteryHistorian2;
 import com.shane.powersaver.fragment.general.GeneralListFragment;
 import com.shane.powersaver.fragment.general.NewsFragment;
 //import net.oschina.app.fragment.general.QuestionFragment;
+import com.shane.powersaver.fragment.general.PowerRankFragment;
 import com.shane.powersaver.interf.OnTabReselectListener;
 
 /**
@@ -45,7 +46,7 @@ public class GeneralViewPagerFragment extends BaseViewPagerFragment implements
                 getBundle(NewsList.CATALOG_WEEK));
         adapter.addTab(title[2], "question", NewsFragment.class,
                 getBundle(NewsList.CATALOG_ALL));
-        adapter.addTab(title[3], "activity", NewsFragment.class,
+        adapter.addTab(title[3], "activity", PowerRankFragment.class,
                 getBundle(NewsList.CATALOG_ALL));
     }
 

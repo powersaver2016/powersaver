@@ -16,6 +16,7 @@ import com.shane.powersaver.bean.base.PageBean;
 import com.shane.powersaver.bean.base.ResultBean;
 import com.shane.powersaver.cache.CacheManager;
 import com.shane.powersaver.ui.empty.EmptyLayout;
+import com.shane.powersaver.util.LogUtil;
 import com.shane.powersaver.widget.SuperRefreshLayout;
 
 import java.lang.reflect.Type;
@@ -35,6 +36,7 @@ public abstract class BaseListFragment<T> extends BaseFragment implements
         SuperRefreshLayout.SuperRefreshLayoutListener,
         AdapterView.OnItemClickListener, BaseListAdapter.Callback,
         View.OnClickListener {
+    private static final String TAG = BaseListFragment.class.getSimpleName();
 
     public static final int TYPE_NORMAL = 0;
     public static final int TYPE_LOADING = 1;
@@ -76,13 +78,15 @@ public abstract class BaseListFragment<T> extends BaseFragment implements
         mListView.setOnItemClickListener(this);
         setFooterType(TYPE_LOADING);
         mErrorLayout.setOnLayoutClickListener(this);
-        if (isNeedFooter())
+        if (isNeedFooter()) {
             mListView.addFooterView(mFooterView);
+        }
     }
 
     @Override
     protected void initData() {
         super.initData();
+        LogUtil.d(TAG, "initData");
         //when open this fragment,read the obj
 
         mAdapter = getListAdapter();
