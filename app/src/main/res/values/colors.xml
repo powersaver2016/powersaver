@@ -100,4 +100,7 @@
     <color name="ques_bt_text_color_dark">#6a6a6a</color>
     <color name="blog_title_text_color_light">#111111</color>
     <color name="count_text_color_light">#9d9d9d</color>
+
+    <color name="pc_item_tag_text_color">#ff33a72a</color>
+    <color name="textview_border_color_green">#ff33a72a</color>
 </resources>

@@ -34,4 +34,11 @@
         <item name="android:textSize">17sp</item>
     </style>
 
+    <style name="Widget_ListView_Item_DoubleLine">
+        <item name="android:paddingStart">@dimen/v5_list_view_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/v5_list_view_padding_horizontal</item>
+    </style>
+
+    <!-- The text appearance for list primary text. -->
+    <style name="TextAppearance_List_Primary" />
 </resources>

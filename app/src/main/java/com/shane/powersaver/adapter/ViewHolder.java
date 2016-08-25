@@ -1,5 +1,7 @@
 package com.shane.powersaver.adapter;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -168,6 +170,11 @@ public class ViewHolder {
         iv.setImageResource(imgRes);
     }
 
+    public void setImage(int viewId, Drawable imgRes) {
+        ImageView iv = getView(viewId);
+        iv.setImageDrawable(imgRes);
+    }
+
     public void setImageForNet(int viewId, String imgUrl, int emptyRes) {
         ImageView iv = getView(viewId);
         RequestManager loader = mCaller.getImgLoader();
@@ -222,6 +229,10 @@ public class ViewHolder {
     public void setDisEnabled(int viewId) {
         View view = getView(viewId);
         view.setEnabled(false);
+    }
+
+    public Context getContext() {
+        return mConvertView.getContext();
     }
 
 }

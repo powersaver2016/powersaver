@@ -51,4 +51,24 @@
 
     <string name="tip_double_click_exit">再次点击退出powersaver</string>
     <string name="info_deleting_refs">正删除并重置设置</string>
+
+    <string name="battery_desc_standby">"手机待机时所耗的电量"</string>
+    <string name="battery_desc_radio">"手机射频所耗的电量"</string>
+    <string name="battery_desc_voice">"语音通话所耗的电量"</string>
+    <string name="battery_desc_wifi">"Wi-Fi 耗电量"</string>
+    <string name="battery_desc_bluetooth">"蓝牙所耗的电量"</string>
+    <string name="battery_desc_display">"显示屏和背光所耗的电量"</string>
+    <string name="battery_desc_apps">"应用所耗电量"</string>
+    <string name="battery_desc_other_apps">其它应用所耗电量</string>
+
+    <string name="power_screen">"屏幕"</string>
+    <string name="power_wifi">"Wi-Fi"</string>
+    <string name="power_bluetooth">"蓝牙"</string>
+    <string name="power_cell">"手机信号"</string>
+    <string name="power_phone">"语音通话"</string>
+    <string name="power_consume_other">其它</string>
+    <string name="power_idle" product="default">"手机待机"</string>
+
+    <string name="process_kernel_label">"Android OS"</string>
+    <string name="process_mediaserver_label">"媒体服务器"</string>
 </resources>

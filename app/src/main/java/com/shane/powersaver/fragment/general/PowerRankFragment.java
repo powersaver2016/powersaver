@@ -19,6 +19,7 @@ import com.shane.powersaver.bean.Banner;
 import com.shane.powersaver.bean.base.BatterySipper;
 import com.shane.powersaver.bean.base.PageBean;
 import com.shane.powersaver.bean.base.ResultBean;
+import com.shane.powersaver.bean.kernel.BatteryStatsHelper;
 import com.shane.powersaver.bean.kernel.BatteryStatsHelperProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
@@ -113,20 +114,32 @@ public class PowerRankFragment extends GeneralListFragment<BatterySipper> {
         } else {
             statsType = BatteryStatsTypes.STATS_CURRENT;
         }
-
+        statsType = BatteryStatsTypes.STATS_SINCE_CHARGED;
         bshp.create(mStats.getBatteryStatsInstance());
         bshp.refreshStats(statsType, -1);
         ArrayList<BatterySipper> sippers = bshp.getUsageList();
+        ArrayList<BatterySipper> items = new ArrayList<BatterySipper>();
         Collections.sort(sippers);
 
-        for (int i = 0; i < 20 && i < sippers.size(); i++) {
+
+        for (int i = 0; i < sippers.size(); i++) {
             BatterySipper sipper = sippers.get(i);
-            LogUtil.i(TAG, sipper.getData(0) + "\n");
+            if (sipper.getRatio() < 1) {
+                break;
+            } else {
+                if (sipper.getRatio() < 100) {
+                    items.add(sipper);
+                }
+            }
         }
 
-        mAdapter.addItem(sippers);
+        mAdapter.addItem(items);
 
         mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         mRefreshLayout.setVisibility(View.VISIBLE);
+
+        setFooterType(TYPE_NO_MORE);
+        mRefreshLayout.setNoMoreData();
+        mRefreshLayout.setOnRefreshListener(null);
     }
 }

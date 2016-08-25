@@ -155,4 +155,7 @@
     <item name="text_size_multiplier_inner" format="float" type="string">0.14</item>
     <item name="text_size_multiplier_outer" format="float" type="string">0.11</item>
 
+    <dimen name="v5_list_view_padding_horizontal">13dip</dimen>
+    <dimen name="list_item_app_icon_size">50.3dip</dimen>
+
 </resources>

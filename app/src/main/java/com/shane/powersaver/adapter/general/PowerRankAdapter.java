@@ -1,10 +1,17 @@
 package com.shane.powersaver.adapter.general;
 
+import android.content.pm.PackageManager;
+import android.widget.ProgressBar;
+
 import com.shane.powersaver.R;
 import com.shane.powersaver.adapter.ViewHolder;
 import com.shane.powersaver.adapter.base.BaseListAdapter;
 import com.shane.powersaver.bean.base.BatterySipper;
+import com.shane.powersaver.bean.base.Constants;
+import com.shane.powersaver.bean.base.UidNameResolver;
+import com.shane.powersaver.bean.kernel.BatterySipperResourceHelper;
 import com.shane.powersaver.util.StringUtils;
+import com.shane.powersaver.util.TextUtils;
 
 /**
  * Created by shane on 16-8-25.
@@ -18,16 +25,24 @@ public class PowerRankAdapter extends BaseListAdapter<BatterySipper> {
 
     @Override
     protected void convert(ViewHolder vh, BatterySipper item, int position) {
-        vh.setText(R.id.tv_title, item.getName());
+        vh.setText(android.R.id.title, BatterySipperResourceHelper.getDisplayName(vh.getContext(), item));
 
-        vh.setTextColor(R.id.tv_title, mCallback.getContext().getResources().getColor(R.color.blog_title_text_color_light));
-        vh.setTextColor(R.id.tv_description, mCallback.getContext().getResources().getColor(R.color.ques_bt_text_color_dark));
+        double percent = item.getRatio();
+        vh.setText(android.R.id.text1, String.format("%.1f%%", percent));
 
-        vh.setText(R.id.tv_description, item.getData(0));
-        vh.setText(R.id.tv_time, StringUtils.friendly_time(StringUtils.getCurTimeStr()));
-        vh.setText(R.id.tv_comment_count, String.valueOf(item.totalPowerMah));
-        vh.setImage(R.id.iv_today, R.drawable.ic_label_today);
-        vh.setVisibility(R.id.iv_today);
+        ProgressBar progressBar = (ProgressBar)vh.getView(android.R.id.progress);
+        progressBar.setMax(100);
+        progressBar.setProgress((int)Math.round(percent));
+
+        int iconId = BatterySipperResourceHelper.getIconId(item);
+        if (iconId > 0) {
+            vh.setImage(android.R.id.icon, iconId);
+        } else if (!TextUtils.isEmpty(item.getPackageName())) {
+            vh.setImage(android.R.id.icon, UidNameResolver.getInstance(vh.getContext()).getIcon(item.getPackageName()));
+        } else {
+            PackageManager pm = vh.getContext().getPackageManager();
+            vh.setImage(android.R.id.icon, pm.getDefaultActivityIcon());
+        }
     }
 
     @Override

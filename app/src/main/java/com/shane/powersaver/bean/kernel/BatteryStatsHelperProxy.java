@@ -114,6 +114,7 @@ public final class BatteryStatsHelperProxy {
             for(Object obj : sippers) {
                 double tpm = (double)totalPowerMah.get(obj);
                 String name = drainTypeField.get(obj).toString();
+                LogUtil.i(TAG, "name:====" + name);
                 BatterySipper bs = new BatterySipper(name, tpm);
 
                 Object myUid = uidObj.get(obj);
@@ -125,10 +126,6 @@ public final class BatteryStatsHelperProxy {
                 bs.setUid(uid);
                 UidInfo myInfo = UidNameResolver.getInstance(mContext).getNameForUid(uid);
                 bs.setUidInfo(myInfo);
-                bs.drainType = BatterySipper.sDrainTypeMap.get(name);
-                if (bs.drainType == BatterySipper.DrainType.APP) {
-                    bs.name = bs.getPackageName();
-                }
 
                 myStats.add(bs);
             }

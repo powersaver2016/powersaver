@@ -15,6 +15,19 @@ public class BatterySipper extends StatElement implements Comparable<BatterySipp
      */
     private static transient final String TAG = BatterySipper.class.getSimpleName();
     public static transient double sBatteryCapacity;
+    public static transient final int IDLE = 0;
+    public static transient final int CELL = 1;
+    public static transient final int PHONE = 2;
+    public static transient final int WIFI = 3;
+    public static transient final int BLUETOOTH = 4;
+    public static transient final int SCREEN = 5;
+    public static transient final int APP = 6;
+    public static transient final int FLASHLIGHT = 7;
+    public static transient final int USER = 8;
+    public static transient final int CAMERA = 9;
+    public static transient final int OTHER = 10;
+    public static transient final int UNACCOUNTED = 11;
+    public static transient final int OVERCOUNTED = 12;
 
     public double totalPowerMah;
 
@@ -22,41 +35,34 @@ public class BatterySipper extends StatElement implements Comparable<BatterySipp
      * the name of the object
      */
     public String name;
-    public DrainType drainType;
+    public int drainType;
 
-    public enum DrainType {
-        IDLE,
-        CELL,
-        PHONE,
-        WIFI,
-        BLUETOOTH,
-        FLASHLIGHT,
-        SCREEN,
-        APP,
-        USER,
-        UNACCOUNTED,
-        OVERCOUNTED,
-        CAMERA
-    }
-
-    public static HashMap<String, DrainType> sDrainTypeMap = new HashMap<String, DrainType>();
+    public static HashMap<String, Integer> sDrainTypeMap = new HashMap<String, Integer>();
 
     static {
-        sDrainTypeMap.put("IDLE", DrainType.IDLE);
-        sDrainTypeMap.put("CELL", DrainType.CELL);
-        sDrainTypeMap.put("PHONE", DrainType.PHONE);
-        sDrainTypeMap.put("WIFI", DrainType.WIFI);
-        sDrainTypeMap.put("BLUETOOTH", DrainType.BLUETOOTH);
-        sDrainTypeMap.put("FLASHLIGHT", DrainType.FLASHLIGHT);
-        sDrainTypeMap.put("SCREEN", DrainType.SCREEN);
-        sDrainTypeMap.put("UNACCOUNTED", DrainType.UNACCOUNTED);
-        sDrainTypeMap.put("OVERCOUNTED", DrainType.OVERCOUNTED);
-        sDrainTypeMap.put("CAMERA", DrainType.CAMERA);
+        sDrainTypeMap.put("IDLE", IDLE);
+        sDrainTypeMap.put("CELL", CELL);
+        sDrainTypeMap.put("PHONE", PHONE);
+        sDrainTypeMap.put("WIFI", WIFI);
+        sDrainTypeMap.put("BLUETOOTH", BLUETOOTH);
+        sDrainTypeMap.put("FLASHLIGHT", FLASHLIGHT);
+        sDrainTypeMap.put("SCREEN", SCREEN);
+        sDrainTypeMap.put("UNACCOUNTED", UNACCOUNTED);
+        sDrainTypeMap.put("OVERCOUNTED", OVERCOUNTED);
+        sDrainTypeMap.put("APP", APP);
+        sDrainTypeMap.put("USER", USER);
+        sDrainTypeMap.put("CAMERA", CAMERA);
     }
 
     public BatterySipper(String strName, double totalPower) {
         name = strName;
         totalPowerMah = totalPower;
+        if (sDrainTypeMap.containsKey(name)) {
+            drainType = sDrainTypeMap.get(name);
+        } else {
+            drainType = -1;
+        }
+
     }
 
     public BatterySipper clone() {
@@ -90,8 +96,12 @@ public class BatterySipper extends StatElement implements Comparable<BatterySipp
         sb.append("\t\t");
         sb.append("uid(" + getuid() + ")\t\t");
 
-        sb.append(this.formatRatio((long) totalPowerMah, (long) sBatteryCapacity));
+        sb.append(formatRatio((long) totalPowerMah, (long) sBatteryCapacity));
         return sb.toString();
+    }
+
+    public double getRatio() {
+        return 100*totalPowerMah/sBatteryCapacity;
     }
 
     public int compareTo(BatterySipper o) {
