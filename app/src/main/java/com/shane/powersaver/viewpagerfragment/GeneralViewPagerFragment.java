@@ -13,6 +13,7 @@ import com.shane.powersaver.bean.NewsList;
 //import net.oschina.app.fragment.general.BlogFragment;
 //import net.oschina.app.fragment.general.EventFragment;
 import com.shane.powersaver.fragment.BatteryHistorian2;
+import com.shane.powersaver.fragment.general.CpuStateFragment;
 import com.shane.powersaver.fragment.general.GeneralListFragment;
 import com.shane.powersaver.fragment.general.NewsFragment;
 //import net.oschina.app.fragment.general.QuestionFragment;
@@ -44,7 +45,7 @@ public class GeneralViewPagerFragment extends BaseViewPagerFragment implements
                 getBundle(NewsList.CATALOG_ALL));
         adapter.addTab(title[1], "latest_blog", NewsFragment.class,
                 getBundle(NewsList.CATALOG_WEEK));
-        adapter.addTab(title[2], "question", NewsFragment.class,
+        adapter.addTab(title[2], "question", CpuStateFragment.class,
                 getBundle(NewsList.CATALOG_ALL));
         adapter.addTab(title[3], "activity", PowerRankFragment.class,
                 getBundle(NewsList.CATALOG_ALL));

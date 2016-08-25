@@ -106,6 +106,10 @@ public class State extends StatElement implements Comparable<State>, Serializabl
                 + " Ratio: " + formatRatio(m_duration, getTotal());
     }
 
+    public double getRatio() {
+        return 100*m_duration/(double)getTotal();
+    }
+
     /**
      * returns the values of the data
      */
@@ -177,7 +181,7 @@ public class State extends StatElement implements Comparable<State>, Serializabl
      */
     public int compareTo(State o) {
         // we want to sort in descending order
-        return ((int) ((o.m_freq) - (this.m_freq)));
+        return ((int) ((o.m_duration) - (this.m_duration)));
     }
 
 
