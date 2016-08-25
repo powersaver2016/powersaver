@@ -71,4 +71,33 @@
 
     <string name="process_kernel_label">"Android OS"</string>
     <string name="process_mediaserver_label">"媒体服务器"</string>
+
+
+    <string name="blog">我的电量日志</string>
+    <string name="information">资料</string>
+    <string name="qrcode">二维码</string>
+    <string name="message">我的消息</string>
+    <string name="team">我的应用白名单</string>
+    <string name="note">便签</string>
+    <string name="my_note">应用权限管理</string>
+    <string name="str_feedback">反馈</string>
+    <string name="bookmarks">收藏夹</string>
+    <string name="user_score">积分</string>
+
+    <string name="actionbar_title_profile">个人中心</string>
+    <string name="favorite">收藏</string>
+    <string name="following">关注</string>
+    <string name="follower">粉丝</string>
+    <string name="join_time">加入时间:</string>
+    <string name="location">所在地区:</string>
+    <string name="development_platform">开发平台:</string>
+    <string name="academic_focus">专长领域:</string>
+    <!-- 找人不显示标题 -->
+    <string name="actionbar_title_event">我的应用黑名单</string>
+    <string name="actionbar_title_my_event">我的应用黑名单</string>
+    <string name="actionbar_title_event_apply">活动出席人员</string>
+    <string name="actionbar_title_same_city">同城</string>
+
+    <string name="actionbar_title_setting">设置</string>
+    <string name="my_information_unlogin_tips">未登录</string>
 </resources>

@@ -89,4 +89,8 @@ public class AppContext extends BaseApplication {
         gsonBuilder.setDateFormat("yyyy-MM-dd HH:mm:ss");
         return gsonBuilder.create();
     }
+
+    public boolean isLogin() {
+        return false;
+    }
 }

@@ -4,6 +4,7 @@ import com.shane.powersaver.R;
 //import net.oschina.app.fragment.ExploreFragment;
 //import net.oschina.app.fragment.MyInformationFragment;
 import com.shane.powersaver.fragment.BatteryHistorian2;
+import com.shane.powersaver.fragment.MyInformationFragment;
 import com.shane.powersaver.viewpagerfragment.GeneralViewPagerFragment;
 //import net.oschina.app.viewpagerfragment.TweetsViewPagerFragment;
 
@@ -27,7 +28,7 @@ public enum MainTab {
             GeneralViewPagerFragment.class),
 
     ME(4, R.string.main_tab_name_my, R.drawable.tab_icon_me,
-            GeneralViewPagerFragment.class);
+            MyInformationFragment.class);
 
     private int idx;
     private int resName;
