@@ -3,6 +3,7 @@ package com.shane.powersaver.fragment;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Message;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,10 +15,8 @@ import android.widget.TextView;
 
 import com.shane.android.common.utils.DateUtils;
 import com.shane.android.system.Device;
-import com.shane.powersaver.AppContext;
 import com.shane.powersaver.base.BaseFragment;
 import com.shane.powersaver.bean.base.BatterySipper;
-import com.shane.powersaver.bean.base.Constants;
 import com.shane.powersaver.bean.base.NativeKernelWakelock;
 import com.shane.powersaver.bean.base.StatElement;
 import com.shane.powersaver.bean.base.Wakelock;
@@ -41,6 +40,9 @@ public class BatteryHistorian2 extends BaseFragment {
     private ArrayList<String> mResultStats;
     private static final int TOP = 6;
 
+    static final int MSG_GET_DATA = 1;
+    static final int MSG_UPDATE_DATA = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,7 @@ public class BatteryHistorian2 extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
+
     }
 
     @Override
@@ -73,12 +76,9 @@ public class BatteryHistorian2 extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mTextView.setText("");
-        try {
-            requestData(true);
-            fillUI();
-        } catch (Exception e) {
-            Log.e(TAG, "Exception: " + Log.getStackTraceString(e));
-        }
+
+        requestData(true);
+
 //        print("Hello, World");
     }
 
@@ -99,7 +99,33 @@ public class BatteryHistorian2 extends BaseFragment {
         }
     }
 
-    private void requestData(boolean refresh) throws Exception {
+    @Override
+    public void doInBackground(Message msg) {
+        super.doInBackground(msg);
+        switch (msg.what) {
+            case MSG_GET_DATA:
+                try {
+                    getData();
+                    mUiHandler.sendEmptyMessage(MSG_UPDATE_DATA);
+                } catch (Exception e) {
+
+                }
+
+                break;
+        }
+    }
+
+    @Override
+    public void doInMainThread(Message msg) {
+        super.doInBackground(msg);
+        switch (msg.what) {
+            case MSG_UPDATE_DATA:
+                fillUI();
+                break;
+        }
+    }
+
+    private void getData() throws Exception {
         ArrayList<StatElement> myStats = new ArrayList<StatElement>();
         // List to store the other usages to
         ArrayList<StatElement> myUsages = new ArrayList<StatElement>();
@@ -198,11 +224,9 @@ public class BatteryHistorian2 extends BaseFragment {
             Wakelock wl = partialWakelocks2.get(i);
             mResultStats.add(wl.getName() + "\t uid(" + wl.getuid() + ")\t" + DateUtils.formatDuration(wl.getDuration()) + "\t" + wl.getCount() + "\n");
         }
-
-
-
-
-
+    }
+    private void requestData(boolean refresh) {
+        mBackgroundHandler.sendEmptyMessage(MSG_GET_DATA);
     }
 
     @Override
@@ -214,4 +238,5 @@ public class BatteryHistorian2 extends BaseFragment {
     public void initData() {
         mResultStats = new ArrayList<String>();
     }
+
 }

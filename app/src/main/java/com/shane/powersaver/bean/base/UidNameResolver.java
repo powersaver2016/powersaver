@@ -190,6 +190,8 @@ public class UidNameResolver {
                 break;
             case 1014:
                 ret = "dhcp";
+            case 1023:
+                ret = "sdcard";
                 break;
 
         }

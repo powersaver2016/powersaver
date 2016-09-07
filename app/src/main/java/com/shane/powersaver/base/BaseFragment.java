@@ -2,6 +2,10 @@ package com.shane.powersaver.base;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -24,6 +28,8 @@ import com.shane.powersaver.ui.dialog.DialogControl;
 
 public class BaseFragment extends Fragment implements
         View.OnClickListener, BaseFragmentInterface {
+    protected String TAG = BaseFragment.class.getSimpleName();
+
     public static final int STATE_NONE = 0;
     public static final int STATE_REFRESH = 1;
     public static final int STATE_LOADMORE = 2;
@@ -33,6 +39,34 @@ public class BaseFragment extends Fragment implements
 
     protected LayoutInflater mInflater;
 
+    protected BackgroundHandler mBackgroundHandler;
+    protected UiHandler mUiHandler;
+
+    protected void doInBackground(Message msg){ }
+    protected void doInMainThread(Message msg){ }
+
+    protected final class BackgroundHandler extends Handler {
+        BackgroundHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            doInBackground(msg);
+        }
+    }
+
+    protected final class UiHandler extends Handler {
+        UiHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            doInMainThread(msg);
+        }
+    }
+
     public AppContext getApplication() {
         return (AppContext) getActivity().getApplication();
     }
@@ -40,6 +74,12 @@ public class BaseFragment extends Fragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        HandlerThread thread = new HandlerThread(TAG, android.os.Process.THREAD_PRIORITY_BACKGROUND);
+        thread.start();
+        Looper looper = thread.getLooper();
+        mBackgroundHandler = new BackgroundHandler(looper);
+        mUiHandler = new UiHandler(this.getActivity().getMainLooper());
+
     }
 
     @Override
@@ -62,6 +102,9 @@ public class BaseFragment extends Fragment implements
 
     @Override
     public void onDestroy() {
+        mBackgroundHandler.removeCallbacksAndMessages(null);
+        mBackgroundHandler.getLooper().quit();
+        mBackgroundHandler = null;
         super.onDestroy();
     }
 

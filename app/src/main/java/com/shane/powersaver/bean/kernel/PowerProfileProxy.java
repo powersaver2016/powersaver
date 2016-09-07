@@ -1,6 +1,9 @@
 package com.shane.powersaver.bean.kernel;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.shane.powersaver.util.LogUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
@@ -43,16 +46,19 @@ public class PowerProfileProxy {
 
             mEnvReady = true;
         } catch (Exception e) {
+            LogUtil.e(TAG, "An exception occured in PowerProfileProxy(). Message: " + e.getMessage() + ", cause: " + Log.getStackTraceString(e));
             mEnvReady = false;
         }
     }
 
+    // Mah
     public double getBatteryCapacity() {
         try {
             Method method = mClassDefinition.getMethod("getBatteryCapacity");
-            return (Double)method.invoke(mInstance, (Object)null);
+            return (Double)method.invoke(mInstance, (Object[])null);
         } catch (Exception e) {
-            return 0;
+            LogUtil.e(TAG, "An exception occured in getBatteryCapacity(). Message: " + e.getMessage() + ", cause: " + Log.getStackTraceString(e));
+            return 3000;
         }
     }
 }
