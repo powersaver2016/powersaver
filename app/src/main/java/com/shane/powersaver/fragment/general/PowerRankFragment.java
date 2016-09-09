@@ -2,6 +2,7 @@ package com.shane.powersaver.fragment.general;
 
 import android.os.Build;
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.shane.powersaver.bean.kernel.BatteryStatsHelperProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypesLolipop;
+import com.shane.powersaver.bean.kernel.CpuStates;
 import com.shane.powersaver.bean.news.News;
 import com.shane.powersaver.cache.CacheManager;
 import com.shane.powersaver.ui.empty.EmptyLayout;
@@ -50,7 +52,7 @@ public class PowerRankFragment extends GeneralListFragment<BatterySipper> {
 
     private ViewNewsHeader mHeaderView;
     private Handler handler = new Handler();
-
+    ArrayList<BatterySipper> mItems = new ArrayList<BatterySipper>();
 
     @Override
     protected void initWidget(View root) {
@@ -100,11 +102,35 @@ public class PowerRankFragment extends GeneralListFragment<BatterySipper> {
         super.setListData(resultBean);
     }
 
+
+
+    @Override
+    public void doInBackground(Message msg) {
+        super.doInBackground(msg);
+        switch (msg.what) {
+            case MSG_GET_DATA:
+                getData();
+                mUiHandler.sendEmptyMessage(MSG_UPDATE_DATA);
+                break;
+        }
+    }
+
+    @Override
+    public void doInMainThread(Message msg) {
+        super.doInBackground(msg);
+        switch (msg.what) {
+            case MSG_UPDATE_DATA:
+                updateUI();
+                break;
+        }
+    }
     @Override
     protected void initData() {
-        mAdapter = getListAdapter();
-        mListView.setAdapter(mAdapter);
+        mBackgroundHandler.sendEmptyMessage(MSG_GET_DATA);
+    }
 
+
+    protected void getData() {
         BatteryStatsProxy.getInstance(mContext).invalidate();
         BatteryStatsProxy mStats = BatteryStatsProxy.getInstance(mContext);
         BatteryStatsHelperProxy bshp = BatteryStatsHelperProxy.getInstance(mContext);
@@ -118,7 +144,7 @@ public class PowerRankFragment extends GeneralListFragment<BatterySipper> {
         bshp.create(mStats.getBatteryStatsInstance());
         bshp.refreshStats(statsType, -1);
         ArrayList<BatterySipper> sippers = bshp.getUsageList();
-        ArrayList<BatterySipper> items = new ArrayList<BatterySipper>();
+        mItems = new ArrayList<BatterySipper>();
         Collections.sort(sippers);
 
 
@@ -128,12 +154,16 @@ public class PowerRankFragment extends GeneralListFragment<BatterySipper> {
                 break;
             } else {
                 if (sipper.getRatio() < 100) {
-                    items.add(sipper);
+                    mItems.add(sipper);
                 }
             }
         }
+    }
 
-        mAdapter.addItem(items);
+    protected void updateUI() {
+        mAdapter = getListAdapter();
+        mListView.setAdapter(mAdapter);
+        mAdapter.addItem(mItems);
 
         mErrorLayout.setErrorType(EmptyLayout.HIDE_LAYOUT);
         mRefreshLayout.setVisibility(View.VISIBLE);

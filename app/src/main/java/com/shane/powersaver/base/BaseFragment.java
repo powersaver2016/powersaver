@@ -39,6 +39,9 @@ public class BaseFragment extends Fragment implements
 
     protected LayoutInflater mInflater;
 
+    protected static final int MSG_GET_DATA = 1;
+    protected static final int MSG_UPDATE_DATA = 1;
+
     protected BackgroundHandler mBackgroundHandler;
     protected UiHandler mUiHandler;
 
@@ -102,9 +105,12 @@ public class BaseFragment extends Fragment implements
 
     @Override
     public void onDestroy() {
-        mBackgroundHandler.removeCallbacksAndMessages(null);
-        mBackgroundHandler.getLooper().quit();
-        mBackgroundHandler = null;
+        if (mBackgroundHandler != null) {
+            mBackgroundHandler.removeCallbacksAndMessages(null);
+            mBackgroundHandler.getLooper().quit();
+            mBackgroundHandler = null;
+        }
+
         super.onDestroy();
     }
 

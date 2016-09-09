@@ -40,9 +40,6 @@ public class BatteryHistorian2 extends BaseFragment {
     private ArrayList<String> mResultStats;
     private static final int TOP = 6;
 
-    static final int MSG_GET_DATA = 1;
-    static final int MSG_UPDATE_DATA = 1;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

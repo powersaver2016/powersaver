@@ -2,6 +2,10 @@ package com.shane.powersaver.fragment.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -34,12 +38,49 @@ public abstract class BaseFragment extends Fragment {
     private RequestManager mImgLoader;
     protected Context mContext;
 
+    protected static final int MSG_GET_DATA = 1;
+    protected static final int MSG_UPDATE_DATA = 1;
+
+    protected BackgroundHandler mBackgroundHandler;
+    protected UiHandler mUiHandler;
+
+    protected void doInBackground(Message msg){ }
+    protected void doInMainThread(Message msg){ }
+
+    protected final class BackgroundHandler extends Handler {
+        BackgroundHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            doInBackground(msg);
+        }
+    }
+
+    protected final class UiHandler extends Handler {
+        UiHandler(Looper looper) {
+            super(looper);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            doInMainThread(msg);
+        }
+    }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getContext();
         mBundle = getArguments();
         initBundle(mBundle);
+
+        HandlerThread thread = new HandlerThread(TAG, android.os.Process.THREAD_PRIORITY_BACKGROUND);
+        thread.start();
+        Looper looper = thread.getLooper();
+        mBackgroundHandler = new BackgroundHandler(looper);
+        mUiHandler = new UiHandler(this.getActivity().getMainLooper());
     }
 
 
@@ -64,6 +105,11 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+        if (mBackgroundHandler != null) {
+            mBackgroundHandler.removeCallbacksAndMessages(null);
+            mBackgroundHandler.getLooper().quit();
+            mBackgroundHandler = null;
+        }
     }
 
     @Override
