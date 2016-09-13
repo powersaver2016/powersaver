@@ -1,5 +1,7 @@
 package com.shane.powersaver.ui;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -17,10 +19,13 @@ import android.widget.Toast;
 import com.shane.android.common.utils.SysUtils;
 import com.shane.powersaver.AppContext;
 import com.shane.powersaver.R;
+import com.shane.powersaver.bean.base.Constants;
 import com.shane.powersaver.bean.kernel.SummaryStatsDumpsys;
 import com.shane.powersaver.bean.kernel.WakeupSources;
+import com.shane.powersaver.cloudcontrol.CloudUpdateReceiver;
 import com.shane.powersaver.interf.BaseViewInterface;
 import com.shane.powersaver.interf.OnTabReselectListener;
+import com.shane.powersaver.util.AlarmHelper;
 import com.shane.powersaver.util.LogUtil;
 import com.shane.powersaver.util.RootShell;
 import com.shane.powersaver.widget.MyFragmentTabHost;
@@ -86,6 +91,12 @@ public class MainActivity extends AppCompatActivity implements
                 Log.i(TAG, "failed");
             }
         }
+
+//        this.sendBroadcast(new Intent(CloudUpdateReceiver.ACTION_UPDATE_DATA).setPackage(Constants.PACKAGE_NAME));
+//        this.sendBroadcast(new Intent(CloudUpdateReceiver.ACTION_UPDATE_DATA));
+//        PendingIntent pi = AlarmHelper.getInstance(this).getPendingIntent(CloudUpdateReceiver.ACTION_UPDATE_DATA, AlarmHelper.TYPE_BROADCAST);
+//        AlarmHelper.getInstance(this).scheduleElapsedAlarm(pi, 10*1000, true);
+
         initView();
     }
 

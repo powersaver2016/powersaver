@@ -92,7 +92,7 @@ public final class BatteryStatsHelperProxy {
     }
 
     @SuppressWarnings("unchecked")
-    public ArrayList<BatterySipper> getUsageList() {
+    public synchronized ArrayList<BatterySipper> getUsageList() {
         ArrayList<BatterySipper> myStats = new ArrayList<BatterySipper>();
 
         try {
@@ -129,7 +129,6 @@ public final class BatteryStatsHelperProxy {
 
                 myStats.add(bs);
             }
-
         } catch (Exception e) {
             LogUtil.e(TAG, "An exception occured in getUsageList(). Message: " + e.getMessage() + ", cause: " + Log.getStackTraceString(e));
         }

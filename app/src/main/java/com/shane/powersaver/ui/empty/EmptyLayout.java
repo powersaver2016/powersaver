@@ -10,7 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shane.powersaver.R;
-import com.shane.powersaver.util.TDevice;
+import com.shane.powersaver.util.Device;
 
 public class EmptyLayout extends LinearLayout implements
         View.OnClickListener {// , ISkinUIObserver {
@@ -140,7 +140,7 @@ public class EmptyLayout extends LinearLayout implements
         case NETWORK_ERROR:
             mErrorState = NETWORK_ERROR;
             // img.setBackgroundDrawable(SkinsUtil.getDrawable(context,"pagefailed_bg"));
-            if (TDevice.hasInternet()) {
+            if (Device.hasInternet()) {
                 tv.setText(R.string.error_view_load_error_click_to_refresh);
                 img.setBackgroundResource(R.drawable.pagefailed_bg);
             } else {

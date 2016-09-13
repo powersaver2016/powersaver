@@ -44,6 +44,7 @@ import com.shane.powersaver.bean.base.StatElement;
 import com.shane.powersaver.bean.base.UidInfo;
 import com.shane.powersaver.bean.base.UidNameResolver;
 import com.shane.powersaver.bean.base.Wakelock;
+import com.shane.powersaver.util.LogUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -169,14 +170,11 @@ public class BatteryStatsProxy {
             Object[] paramsGetService = new Object[1];
             paramsGetService[0] = service;
 
-            if (AppContext.DEBUG) {
-                Log.i(TAG, "invoking android.os.ServiceManager.getService(\"batteryinfo\")");
-            }
+            LogUtil.i(TAG, "invoking android.os.ServiceManager.getService(\"batteryinfo\")");
+
             IBinder serviceBinder = (IBinder) methodGetService.invoke(serviceManagerClass, paramsGetService);
 
-            if (AppContext.DEBUG) {
-                Log.i(TAG, "android.os.ServiceManager.getService(\"batteryinfo\") returned a service binder");
-            }
+            LogUtil.i(TAG, "android.os.ServiceManager.getService(\"batteryinfo\") returned a service binder");
 
             // now we have a binder. Let's us that on IBatteryStats.Stub.asInterface
             // to get an IBatteryStats
@@ -196,9 +194,7 @@ public class BatteryStatsProxy {
             Object[] paramsAsInterface = new Object[1];
             paramsAsInterface[0] = serviceBinder;
 
-            if (AppContext.DEBUG) {
-                Log.i(TAG, "invoking com.android.internal.app.IBatteryStats$Stub.asInterface");
-            }
+            LogUtil.i(TAG, "invoking com.android.internal.app.IBatteryStats$Stub.asInterface");
             Object iBatteryStatsInstance = methodAsInterface.invoke(iBatteryStatsStub, paramsAsInterface);
 
             // and finally we call getStatistics from that IBatteryStats to obtain a Parcel
@@ -208,14 +204,10 @@ public class BatteryStatsProxy {
             @SuppressWarnings("unchecked")
             Method methodGetStatistics = iBatteryStats.getMethod("getStatistics");
 
-            if (AppContext.DEBUG) {
-                Log.i(TAG, "invoking getStatistics");
-            }
+            LogUtil.i(TAG, "invoking getStatistics");
             byte[] data = (byte[]) methodGetStatistics.invoke(iBatteryStatsInstance);
 
-            if (AppContext.DEBUG) {
-                Log.i(TAG, "retrieving parcel");
-            }
+            LogUtil.i(TAG, "retrieving parcel");
 
             Parcel parcel = Parcel.obtain();
             parcel.unmarshall(data, 0, data.length);
@@ -224,9 +216,7 @@ public class BatteryStatsProxy {
             @SuppressWarnings("rawtypes")
             Class batteryStatsImpl = cl.loadClass("com.android.internal.os.BatteryStatsImpl");
 
-            if (AppContext.DEBUG) {
-                Log.i(TAG, "reading CREATOR field");
-            }
+            LogUtil.i(TAG, "reading CREATOR field");
             Field creatorField = batteryStatsImpl.getField("CREATOR");
 
             // From here on we don't need reflection anymore
@@ -236,9 +226,9 @@ public class BatteryStatsProxy {
             m_Instance = batteryStatsImpl_CREATOR.createFromParcel(parcel);
         } catch (Exception e) {
             if (e instanceof InvocationTargetException && e.getCause() != null) {
-                Log.e(TAG, "An exception occured in BatteryStatsProxy(). Message: " + e.getCause().getMessage());
+                LogUtil.e(TAG, "An exception occured in BatteryStatsProxy(). Message: " + e.getCause().getMessage());
             } else {
-                Log.e(TAG, "An exception occured in BatteryStatsProxy(). Message: " + e.getMessage());
+                LogUtil.e(TAG, "An exception occured in BatteryStatsProxy(). Message: " + e.getMessage());
             }
             m_Instance = null;
 
@@ -1565,7 +1555,7 @@ public class BatteryStatsProxy {
                 && BatteryStatsTypes.assertValidStatType(iStatType)
                 && BatteryStatsTypes.assertValidWakelockPctRef(iWlPctRef));
         if (!validTypes) {
-            Log.e(TAG, "Invalid WakeType or StatType");
+            LogUtil.e(TAG, "Invalid WakeType or StatType");
             throw new Exception("Invalid WakeType of StatType");
         }
 
@@ -1782,21 +1772,17 @@ public class BatteryStatsProxy {
                 //Boolean inDischargeVal 				= (Boolean) inDischarge.get(params[0]);
                 Boolean trackingReportedValuesVal = (Boolean) trackingReportedValues.get(params[0]);
 
-                if (AppContext.DEBUG) {
-                    Log.d(TAG, "Kernel wakelock '" + wakelockEntry.getKey() + "'"
-                            + " : reading fields from SampleTimer: "
-                            + " [currentReportedCountVal] = " + currentReportedCountVal
-                            + " [currentReportedTotalTimeVal] = " + currentReportedTotalTimeVal
-                            + " [unpluggedReportedCountVal] = " + unpluggedReportedCountVal
-                            + " [mUnpluggedReportedTotalTimeVal] = " + unpluggedReportedTotalTimeVal
-                            //+ " [mInDischarge] = " + inDischargeVal
-                            + " [mTrackingReportedValues] = " + trackingReportedValuesVal);
-                }
+                LogUtil.d(TAG, "Kernel wakelock '" + wakelockEntry.getKey() + "'"
+                        + " : reading fields from SampleTimer: "
+                        + " [currentReportedCountVal] = " + currentReportedCountVal
+                        + " [currentReportedTotalTimeVal] = " + currentReportedTotalTimeVal
+                        + " [unpluggedReportedCountVal] = " + unpluggedReportedCountVal
+                        + " [mUnpluggedReportedTotalTimeVal] = " + unpluggedReportedTotalTimeVal
+                        //+ " [mInDischarge] = " + inDischargeVal
+                        + " [mTrackingReportedValues] = " + trackingReportedValuesVal);
 
-                if (AppContext.DEBUG) {
-                    Log.d(TAG, "Kernel wakelock: " + wakelockEntry.getKey() + " wakelock [s] " + currentReportedTotalTimeVal / 1000
-                            + " count " + currentReportedCountVal);
-                }
+                LogUtil.d(TAG, "Kernel wakelock: " + wakelockEntry.getKey() + " wakelock [s] " + currentReportedTotalTimeVal / 1000
+                        + " count " + currentReportedCountVal);
 
                 NativeKernelWakelock myWl = new NativeKernelWakelock(
                         wakelockEntry.getKey(), "*api*", currentReportedCountVal, 0, 0, 0L,

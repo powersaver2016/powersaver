@@ -4,8 +4,6 @@ package com.shane.powersaver.base;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.DrawableRes;
-import android.text.Html;
-import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +17,7 @@ import android.widget.TextView;
 import com.shane.powersaver.R;
 import com.shane.powersaver.bean.Entity;
 import com.shane.powersaver.util.StringUtils;
-import com.shane.powersaver.util.TDevice;
+import com.shane.powersaver.util.Device;
 
 
 import java.util.ArrayList;
@@ -216,7 +214,7 @@ public class ListBaseAdapter<T extends Entity> extends BaseAdapter {
                         mFooterView.setVisibility(View.VISIBLE);
                         progress.setVisibility(View.GONE);
                         text.setVisibility(View.VISIBLE);
-                        if (TDevice.hasInternet()) {
+                        if (Device.hasInternet()) {
                             text.setText("加载出错了");
                         } else {
                             text.setText("没有可用的网络");

@@ -25,6 +25,7 @@ import com.shane.powersaver.bean.kernel.BatteryStatsHelperProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypesLolipop;
+import com.shane.powersaver.util.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -92,7 +93,7 @@ public class BatteryHistorian2 extends BaseFragment {
         if (mResultStats == null || mResultStats.size() < 1) return;
         for (String stat : mResultStats) {
             print(stat);
-            Log.i(TAG, "stat: " + stat);
+            LogUtil.i(TAG, "stat: " + stat);
         }
     }
 
@@ -139,8 +140,8 @@ public class BatteryHistorian2 extends BaseFragment {
         try {
             batteryRealtime = mStats.getBatteryRealtime(rawRealtime);
         } catch (Exception e) {
-            Log.e(TAG, "An exception occured processing battery realtime. Message: " + e.getMessage());
-            Log.e(TAG, "Exception: " + Log.getStackTraceString(e));
+            LogUtil.e(TAG, "An exception occured processing battery realtime. Message: " + e.getMessage());
+            LogUtil.e(TAG, "Exception: " + Log.getStackTraceString(e));
         }
 
         int statsType = 0;

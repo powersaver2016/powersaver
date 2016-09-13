@@ -5,6 +5,7 @@
     android:versionName="0.1.0822"
     package="com.shane.powersaver">
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.BATTERY_STATS" />
     <uses-permission android:name="android.permission.DUMP" />
     <!-- required for writing dump files -->
@@ -31,23 +32,16 @@
     <uses-permission android:name="android.permission.READ_LOGS" />
     <!-- permission to access su (optional if available for dumpsys and network stats -->
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="com.shane.powersaver.permission.READ_CLOUD_CONFIG" />
 
+    <permission android:name="com.shane.powersaver.permission.READ_CLOUD_CONFIG"
+                android:protectionLevel="signatureOrSystem"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppBaseTheme_Light">
-        <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
 
         <activity
             android:name=".ui.MainActivity"
@@ -60,6 +54,24 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".cloudcontrol.CloudUpdateReceiver"
+            android:process = ":service" >
+            <intent-filter>
+                <action android:name="com.shane.powersaver.action.UPDATE_CLOUD_DATA" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+        <provider
+            android:name="com.shane.powersaver.provider.PowerSaverConfigureProvider"
+            android:authorities="com.shane.powersaver.configure"
+            android:process = ":service"
+            android:permission="com.shane.powersaver.permission.READ_CLOUD_CONFIG"
+            android:exported="true" >
+        </provider>
     </application>
 
 </manifest>

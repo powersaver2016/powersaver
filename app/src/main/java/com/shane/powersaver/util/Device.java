@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.UUID;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-public class TDevice {
+public class Device {
 
     // 手机网络类型
     public static final int NETTYPE_WIFI = 0x01;
@@ -65,7 +65,7 @@ public class TDevice {
         PRE_HC = Build.VERSION.SDK_INT < 11;
     }
 
-    public TDevice() {
+    public Device() {
     }
 
     public static float dpToPixel(float dp) {
@@ -565,19 +565,12 @@ public class TDevice {
         boolean isWifiConnect = false;
         ConnectivityManager cm = (ConnectivityManager) BaseApplication
                 .context().getSystemService(Context.CONNECTIVITY_SERVICE);
-        // check the networkInfos numbers
-        NetworkInfo[] networkInfos = cm.getAllNetworkInfo();
-        for (int i = 0; i < networkInfos.length; i++) {
-            if (networkInfos[i].getState() == NetworkInfo.State.CONNECTED) {
-                if (networkInfos[i].getType() == ConnectivityManager.TYPE_MOBILE) {
-                    isWifiConnect = false;
-                }
-                if (networkInfos[i].getType() == ConnectivityManager.TYPE_WIFI) {
-                    isWifiConnect = true;
-                }
-            }
+
+        NetworkInfo activeInfo = cm.getActiveNetworkInfo();
+        if (activeInfo != null && activeInfo.isConnected()) {
+            return activeInfo.getType() == ConnectivityManager.TYPE_WIFI;
         }
-        return isWifiConnect;
+        return false;
     }
 
     public static void uninstallApk(Context context, String packageName) {

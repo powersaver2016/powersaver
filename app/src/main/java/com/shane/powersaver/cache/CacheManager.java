@@ -2,7 +2,7 @@ package com.shane.powersaver.cache;
 
 import android.content.Context;
 
-import com.shane.powersaver.util.TDevice;
+import com.shane.powersaver.util.Device;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -117,7 +117,7 @@ public class CacheManager {
 	}
 	long existTime = System.currentTimeMillis() - data.lastModified();
 	boolean failure = false;
-	if (TDevice.getNetworkType() == TDevice.NETTYPE_WIFI) {
+	if (Device.getNetworkType() == Device.NETTYPE_WIFI) {
 	    failure = existTime > wifi_cache_time ? true : false;
 	} else {
 	    failure = existTime > other_cache_time ? true : false;

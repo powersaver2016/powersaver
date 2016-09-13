@@ -1,5 +1,7 @@
 package com.shane.powersaver.util;
 
+import com.shane.powersaver.AppContext;
+
 import java.util.Arrays;
 
 /**
@@ -13,7 +15,7 @@ import java.util.Arrays;
 
 public class LogUtil {
     private static final String TAG = "PowerSaver";
-    private static final boolean DEBUG = true;
+    private static final boolean DEBUG = AppContext.DEBUG;
 
     private LogUtil() {
     }

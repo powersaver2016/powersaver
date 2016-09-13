@@ -26,7 +26,7 @@ import com.shane.powersaver.bean.ResultBean;
 import com.shane.powersaver.cache.CacheManager;
 import com.shane.powersaver.ui.empty.EmptyLayout;
 import com.shane.powersaver.util.StringUtils;
-import com.shane.powersaver.util.TDevice;
+import com.shane.powersaver.util.Device;
 import com.shane.powersaver.util.ThemeSwitchUtils;
 import com.shane.powersaver.util.XmlUtils;
 
@@ -255,7 +255,7 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
      */
     protected boolean isReadCacheData(boolean refresh) {
         String key = getCacheKey();
-        if (!TDevice.hasInternet()) {
+        if (!Device.hasInternet()) {
             return true;
         }
         // 第一页若不是主动刷新，缓存存在，优先取缓存的
