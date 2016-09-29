@@ -8,7 +8,6 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.UserHandle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -19,15 +18,14 @@ import com.shane.powersaver.provider.CloudAppConfigure;
 import com.shane.powersaver.provider.GlobalFeatureConfigure;
 import com.shane.powersaver.provider.GlobalFeatureConfigureHelper;
 
-import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class LocalUpdateUtils {
-    public static final String TAG = LocalUpdateUtils.class.getName();
+public class CloudUpdateUtils {
+    public static final String TAG = CloudUpdateUtils.class.getName();
     public static final String FEATURE_STATUS = "hide_mode";
     public static final String DEVICEIDLE_STATUS = "idle_mode";
     public static final String MIUI_IDLE_STATUS = "miui_idle";
@@ -106,7 +104,7 @@ public class LocalUpdateUtils {
         sAppMap.put(FEATURE_BG_KILL_DELAY_HOT, CloudAppConfigure.Columns.BG_KILL_DELAY_HOT);
     }
 
-    public static ContentValues getCloudAppContentValues(final Context context, final PowerKeeperCloudControlApp appRule) {
+    public static ContentValues getCloudAppContentValues(final Context context, final PowerSaverCloudControlApp appRule) {
         ContentValues values = new ContentValues();
         values.put(CloudAppConfigure.Columns.PACKAGE_NAME, appRule.appName);
         for (String key: appRule.action.keySet()) {
@@ -127,7 +125,7 @@ public class LocalUpdateUtils {
         return true;
     }
 
-    public static boolean setCloudAppRule(final Context context, final PowerKeeperCloudControlApp appRule) {
+    public static boolean setCloudAppRule(final Context context, final PowerSaverCloudControlApp appRule) {
         boolean ret = true;
         boolean isExist = false;
         String selection = CloudAppConfigure.Columns.PACKAGE_NAME + " = " + "\"" + appRule.appName +"\"" ;
@@ -174,7 +172,7 @@ public class LocalUpdateUtils {
         return ret;
     }
 
-    public static ContentValues getCloudFeatureContentValues(final Context context, final PowerKeeperCloudControlFeature featureRule) {
+    public static ContentValues getCloudFeatureContentValues(final Context context, final PowerSaverCloudControlFeature featureRule) {
         String featureName = sFeaturesMap.get(featureRule.featureName);
         if (featureName == null) return null;
         ContentValues values = new ContentValues();
@@ -190,7 +188,7 @@ public class LocalUpdateUtils {
         return values;
     }
 
-    public static boolean setCloudFeatureRule(final Context context, final PowerKeeperCloudControlFeature featureRule) {
+    public static boolean setCloudFeatureRule(final Context context, final PowerSaverCloudControlFeature featureRule) {
         String featureName = sFeaturesMap.get(featureRule.featureName);
         if (featureName == null) return false;
         Bundle bundle = new Bundle();

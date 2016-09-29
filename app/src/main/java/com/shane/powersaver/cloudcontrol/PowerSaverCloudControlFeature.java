@@ -7,8 +7,8 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PowerKeeperCloudControlFeature implements Parcelable {
-    private static final String TAG = PowerKeeperCloudControlFeature.class.getSimpleName();
+public class PowerSaverCloudControlFeature implements Parcelable {
+    private static final String TAG = PowerSaverCloudControlFeature.class.getSimpleName();
     public static final String FEATURE_STATUS = "hide_mode";
     public static final String DEVICEIDLE_STATUS = "idle_mode";
     public static final String MIUI_IDLE_STATUS = "miui_idle";
@@ -17,17 +17,17 @@ public class PowerKeeperCloudControlFeature implements Parcelable {
     public static final String BROADCAST_ALARM_STATUS = "broadcast_alarm";
     public static final String FROZEN_STATUS = "frozen";
     public static final String FEATURE_LIST = "feature_list";
-    public static final String ADDED = PowerKeeperCloudControlApp.ADDED;
-    public static final String GROUP_ID = PowerKeeperCloudControlApp.GROUP_ID;
-    public static final String ACTION_KEY = PowerKeeperCloudControlApp.ACTION_KEY;
-    public static final String ACTION_VALUE = PowerKeeperCloudControlApp.ACTION_VALUE;
+    public static final String ADDED = PowerSaverCloudControlApp.ADDED;
+    public static final String GROUP_ID = PowerSaverCloudControlApp.GROUP_ID;
+    public static final String ACTION_KEY = PowerSaverCloudControlApp.ACTION_KEY;
+    public static final String ACTION_VALUE = PowerSaverCloudControlApp.ACTION_VALUE;
 
     public boolean added;
     public int groupId;
     public String featureName;
     public String value;
 
-    public PowerKeeperCloudControlFeature(boolean added, int groupId, String featureName, String value) {
+    public PowerSaverCloudControlFeature(boolean added, int groupId, String featureName, String value) {
         this.added = added;
         this.groupId = groupId;
         this.featureName = featureName;
@@ -47,7 +47,7 @@ public class PowerKeeperCloudControlFeature implements Parcelable {
         dest.writeString(value);
     }
 
-    public PowerKeeperCloudControlFeature (Parcel in) {
+    public PowerSaverCloudControlFeature(Parcel in) {
         this.added = in.readInt() > 0? true: false;
         this.groupId = in.readInt();
         this.featureName = in.readString();
@@ -67,14 +67,14 @@ public class PowerKeeperCloudControlFeature implements Parcelable {
         return json;
     }
 
-    public static PowerKeeperCloudControlFeature parseFromJson (JSONObject obj) {
-        PowerKeeperCloudControlFeature feature;
+    public static PowerSaverCloudControlFeature parseFromJson (JSONObject obj) {
+        PowerSaverCloudControlFeature feature;
         try {
             boolean added = obj.getBoolean(ADDED);
             int groupId = obj.getInt(GROUP_ID);
             String featureName = obj.getString(ACTION_KEY);
             String value = obj.getString(ACTION_VALUE);
-            feature = new PowerKeeperCloudControlFeature(added, groupId, featureName, value);
+            feature = new PowerSaverCloudControlFeature(added, groupId, featureName, value);
         } catch (JSONException e) {
             Log.e(TAG, "parseFromJson", e);
             feature = null;
@@ -86,14 +86,14 @@ public class PowerKeeperCloudControlFeature implements Parcelable {
         return feature;
     }
 
-    public static final Creator<PowerKeeperCloudControlFeature> CREATOR
-        = new Creator<PowerKeeperCloudControlFeature>() {
-                public PowerKeeperCloudControlFeature createFromParcel(Parcel in) {
-                    return new PowerKeeperCloudControlFeature(in);
+    public static final Creator<PowerSaverCloudControlFeature> CREATOR
+        = new Creator<PowerSaverCloudControlFeature>() {
+                public PowerSaverCloudControlFeature createFromParcel(Parcel in) {
+                    return new PowerSaverCloudControlFeature(in);
                 }
 
-                public PowerKeeperCloudControlFeature[] newArray(int size) {
-                    return new PowerKeeperCloudControlFeature[size];
+                public PowerSaverCloudControlFeature[] newArray(int size) {
+                    return new PowerSaverCloudControlFeature[size];
                 }
             };
 

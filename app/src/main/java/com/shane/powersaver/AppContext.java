@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import com.google.gson.Gson;
 
 import com.shane.powersaver.base.BaseApplication;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * AppContext
@@ -29,7 +30,7 @@ public class AppContext extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
-
+        LeakCanary.install(this);
         /*
         // AppException 取消
         Thread.setDefaultUncaughtExceptionHandler(AppException

@@ -9,8 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PowerKeeperCloudControlApp implements Parcelable {
-    private static final String TAG = PowerKeeperCloudControlApp.class.getSimpleName();
+public class PowerSaverCloudControlApp implements Parcelable {
+    private static final String TAG = PowerSaverCloudControlApp.class.getSimpleName();
     public static final String APP_LIST = "app_list";
     public static final String ADDED = "added";
     public static final String GROUP_ID = "group_id";
@@ -24,7 +24,7 @@ public class PowerKeeperCloudControlApp implements Parcelable {
     public String appName;
     public Bundle action;
 
-    public PowerKeeperCloudControlApp(boolean added, int groupId, String appName, Bundle action) {
+    public PowerSaverCloudControlApp(boolean added, int groupId, String appName, Bundle action) {
         this.added = added;
         this.groupId = groupId;
         this.appName = appName;
@@ -44,7 +44,7 @@ public class PowerKeeperCloudControlApp implements Parcelable {
         dest.writeBundle(action);
     }
 
-    public PowerKeeperCloudControlApp (Parcel in) {
+    public PowerSaverCloudControlApp(Parcel in) {
         this.added = in.readInt() > 0? true: false;
         this.groupId = in.readInt();
         this.appName = in.readString();
@@ -71,8 +71,8 @@ public class PowerKeeperCloudControlApp implements Parcelable {
         return json;
     }
 
-    public static PowerKeeperCloudControlApp parseFromJson (final JSONObject obj) {
-        PowerKeeperCloudControlApp app;
+    public static PowerSaverCloudControlApp parseFromJson (final JSONObject obj) {
+        PowerSaverCloudControlApp app;
         try {
             boolean added = obj.getBoolean(ADDED);
             int groupId = obj.getInt(GROUP_ID);
@@ -83,7 +83,7 @@ public class PowerKeeperCloudControlApp implements Parcelable {
                 JSONObject tmp = arr.optJSONObject(i);
                 action.putString(tmp.getString(ACTION_KEY), tmp.getString(ACTION_VALUE));
             }
-            app = new PowerKeeperCloudControlApp(added, groupId, appName, action);
+            app = new PowerSaverCloudControlApp(added, groupId, appName, action);
         } catch (JSONException e) {
             Log.e(TAG, "parseFromJson", e);
             app = null;
@@ -95,14 +95,14 @@ public class PowerKeeperCloudControlApp implements Parcelable {
         return app;
     }
 
-    public static final Creator<PowerKeeperCloudControlApp> CREATOR =
-            new Creator<PowerKeeperCloudControlApp>() {
-                public PowerKeeperCloudControlApp createFromParcel(Parcel in) {
-                    return new PowerKeeperCloudControlApp(in);
+    public static final Creator<PowerSaverCloudControlApp> CREATOR =
+            new Creator<PowerSaverCloudControlApp>() {
+                public PowerSaverCloudControlApp createFromParcel(Parcel in) {
+                    return new PowerSaverCloudControlApp(in);
                 }
 
-                public PowerKeeperCloudControlApp[] newArray(int size) {
-                    return new PowerKeeperCloudControlApp[size];
+                public PowerSaverCloudControlApp[] newArray(int size) {
+                    return new PowerSaverCloudControlApp[size];
                 }
             };
 

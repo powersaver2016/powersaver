@@ -29,6 +29,7 @@ import com.shane.powersaver.util.AlarmHelper;
 import com.shane.powersaver.util.LogUtil;
 import com.shane.powersaver.util.RootShell;
 import com.shane.powersaver.widget.MyFragmentTabHost;
+import com.squareup.leakcanary.LeakCanary;
 
 import java.util.List;
 
@@ -98,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements
 //        AlarmHelper.getInstance(this).scheduleElapsedAlarm(pi, 10*1000, true);
 
         initView();
+
     }
 
     @Override
