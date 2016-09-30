@@ -507,7 +507,7 @@ public abstract class BaseListFragment<T extends Entity> extends BaseFragment
         AppContext.putReadedPostList(prefFileName, key, "true");
         TextView tvTitle = (TextView) view.findViewById(R.id.tv_title);
         if (tvTitle != null) {
-            tvTitle.setTextColor(AppContext.getInstance().getResources().getColor(ThemeSwitchUtils.getTitleReadedColor()));
+            tvTitle.setTextColor(getActivity().getApplicationContext().getResources().getColor(ThemeSwitchUtils.getTitleReadedColor()));
         }
     }
 

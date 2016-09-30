@@ -1,5 +1,6 @@
 package com.shane.powersaver;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
@@ -19,9 +20,9 @@ import com.squareup.leakcanary.LeakCanary;
 public class AppContext extends BaseApplication {
     public static final int PAGE_SIZE = 20;// 默认分页大小
 
-    private static AppContext sInstance;
     public static boolean DEBUG = false;
     public static boolean TRACE = false;
+
     public static final String KEY_FRITST_START = "KEY_FRIST_START";
 
     public static final String KEY_NIGHT_MODE_SWITCH = "night_mode_switch";
@@ -29,7 +30,6 @@ public class AppContext extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        sInstance = this;
         LeakCanary.install(this);
         /*
         // AppException 取消
@@ -38,16 +38,9 @@ public class AppContext extends BaseApplication {
                 */
     }
 
-    /**
-     * 获得当前app运行的AppContext
-     *
-     * @return
-     */
-    public static AppContext getInstance() {
-        return sInstance;
+    public static Context getContext() {
+        return BaseApplication._context;
     }
-
-
     /**
      * 获取App安装包信息
      *

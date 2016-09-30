@@ -686,7 +686,7 @@ public class Device {
     public static int getNetworkType() {
         int netType = 0;
         ConnectivityManager connectivityManager = (ConnectivityManager) AppContext
-                .getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
+                .getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
         if (networkInfo == null) {
             return netType;

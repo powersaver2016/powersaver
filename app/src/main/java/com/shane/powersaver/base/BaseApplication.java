@@ -34,7 +34,7 @@ import com.shane.powersaver.util.StringUtils;
 public class BaseApplication extends Application {
     private static String PREF_NAME = "creativelocker.pref";
     private static String LAST_REFRESH_TIME = "last_refresh_time.pref";
-    static Context _context;
+    protected  static Context _context;
     static Resources _resource;
     private static String lastToast = "";
     private static long lastToastTime;
