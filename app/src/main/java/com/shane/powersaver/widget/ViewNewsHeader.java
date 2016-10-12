@@ -26,8 +26,10 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by huanghaibin
- * on 16-6-2.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class ViewNewsHeader extends RelativeLayout implements ViewPager.OnPageChangeListener {
     private ViewPager vp_news;

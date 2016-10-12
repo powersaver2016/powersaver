@@ -33,8 +33,10 @@ import com.shane.android.common.utils.DateUtils;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * @author sven
- *         Value holder for alarms
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class Alarm extends StatElement implements Comparable<Alarm>, Serializable {
     /**

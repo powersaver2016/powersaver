@@ -23,9 +23,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * A DTO for State
  *
- * @author sven
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class StateDto implements Serializable {
 

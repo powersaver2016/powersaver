@@ -13,8 +13,10 @@ import com.shane.powersaver.bean.Banner;
 import com.shane.powersaver.util.UIHelper;
 
 /**
- * Created by huanghaibin
- * on 16-5-23.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class ViewNewsBanner extends RelativeLayout implements View.OnClickListener {
     private Banner banner;

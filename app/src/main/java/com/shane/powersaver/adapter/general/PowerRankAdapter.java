@@ -14,7 +14,10 @@ import com.shane.powersaver.util.StringUtils;
 import com.shane.powersaver.util.TextUtils;
 
 /**
- * Created by shane on 16-8-25.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class PowerRankAdapter extends BaseListAdapter<BatterySipper> {
     private String systemTime;

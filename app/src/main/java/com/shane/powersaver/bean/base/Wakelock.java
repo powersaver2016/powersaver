@@ -28,7 +28,10 @@ import java.util.List;
 //import android.content.Context;
 
 /**
- * @author sven
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class Wakelock extends StatElement implements Comparable<Wakelock>, Serializable {
     /**

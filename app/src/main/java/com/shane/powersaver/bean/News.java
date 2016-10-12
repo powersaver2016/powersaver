@@ -9,56 +9,56 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 新闻、软件、帖子、博客实体类
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @created 2014年9月28日 上午10:16:59
  *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("serial")
 @XStreamAlias("news")
 public class News extends Entity {
-	
+
 	public final static int NEWSTYPE_NEWS = 0x00;//0 新闻
 	public final static int NEWSTYPE_SOFTWARE = 0x01;//1 软件
 	public final static int NEWSTYPE_POST = 0x02;//2 帖子
 	public final static int NEWSTYPE_BLOG = 0x03;//3 博客
-	
+
 	@XStreamAlias("title")
 	private String title;
-	
+
 	@XStreamAlias("url")
 	private String url;
-	
+
 	@XStreamAlias("body")
 	private String body;
-	
+
 	@XStreamAlias("author")
 	private String author;
-	
+
 	@XStreamAlias("authorid")
 	private int authorId;
-	
+
 	@XStreamAlias("commentcount")
 	private int commentCount;
-	
+
 	@XStreamAlias("pubdate")
 	private String pubDate;
-	
+
 	@XStreamAlias("softwarelink")
 	private String softwareLink;
-	
+
 	@XStreamAlias("softwarename")
 	private String softwareName;
-	
+
 	@XStreamAlias("favorite")
 	private int favorite;
-	
+
 	@XStreamAlias("newstype")
 	private NewsType newsType;
-	
+
 	@XStreamAlias("relativies")
 	private List<Relative> relatives = new ArrayList<Relative>();
-	
+
 	public int getId() {
 		return id;
 	}
@@ -162,7 +162,7 @@ public class News extends Entity {
 	public void setRelatives(List<Relative> relatives) {
 		this.relatives = relatives;
 	}
-	
+
 	@XStreamAlias("newstype")
 	public class NewsType implements Serializable{
 		@XStreamAlias("type")
@@ -173,7 +173,7 @@ public class News extends Entity {
 		private int authoruid2;
 		@XStreamAlias("eventurl")
 		private String eventUrl;
-		
+
 		public String getEventUrl() {
 			return eventUrl;
 		}
@@ -198,17 +198,17 @@ public class News extends Entity {
 		public void setAuthoruid2(int authoruid2) {
 			this.authoruid2 = authoruid2;
 		}
-	} 
-	
+	}
+
 	@XStreamAlias("relative")
 	public class Relative implements Serializable{
-		
+
 		@XStreamAlias("rtitle")
 		public String title;
-		
+
 		@XStreamAlias("rurl")
 		public String url;
-		
+
 		public String getTitle() {
 			return title;
 		}
@@ -221,5 +221,5 @@ public class News extends Entity {
 		public void setUrl(String url) {
 			this.url = url;
 		}
-	} 
+	}
 }

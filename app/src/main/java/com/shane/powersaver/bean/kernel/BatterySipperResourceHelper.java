@@ -6,7 +6,12 @@ import com.shane.powersaver.R;
 import com.shane.powersaver.bean.base.BatterySipper;
 import com.shane.powersaver.bean.base.UidNameResolver;
 
-
+/**
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
+ */
 public class BatterySipperResourceHelper {
     private static final String TAG = "BatterySipperResourceHelper";
 

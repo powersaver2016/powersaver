@@ -5,11 +5,13 @@ import android.os.Bundle;
 
 import com.shane.powersaver.AppContext;
 
+
 /**
  * 界面帮助类
  *
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @version 创建时间：2014年10月10日 下午3:33:36
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-22
  */
 public class UIHelper {
 

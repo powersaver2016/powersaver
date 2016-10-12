@@ -2,6 +2,12 @@ package com.shane.powersaver.adapter;
 
 import android.os.Bundle;
 
+/**
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
+ */
 public final class ViewPageInfo {
 
 	public final String tag;

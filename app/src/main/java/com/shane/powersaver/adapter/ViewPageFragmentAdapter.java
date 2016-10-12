@@ -19,6 +19,13 @@ import com.shane.powersaver.widget.PagerSlidingTabStrip;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
+ */
+
 @SuppressLint("Recycle")
 public class ViewPageFragmentAdapter extends FragmentStatePagerAdapter {
 

@@ -10,8 +10,10 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 
 /**
- * Created by huanghaibin
- * on 2016/5/23.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("unused")
 public class SuperRefreshLayout extends SwipeRefreshLayout implements AbsListView.OnScrollListener, SwipeRefreshLayout.OnRefreshListener {

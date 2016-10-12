@@ -3,9 +3,10 @@ package com.shane.powersaver.widget.indicator;
 import android.support.v4.view.ViewPager;
 
 /**
- * Created by huanghaibin
- * on 16-5-19.
- * 抽象指示器
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("unused")
 public interface PagerIndicator extends ViewPager.OnPageChangeListener {

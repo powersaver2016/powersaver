@@ -34,13 +34,15 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
+
 /**
- * 登录用户中心页面
+ * 我的页面
  *
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @author kymjs (http://my.oschina.net/kymjs)
- * @version 创建时间：2014年10月30日 下午4:05:47
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-22
  */
+
 public class MyInformationFragment extends BaseFragment {
 
     // public static final int sChildView = 9; // 在没有加入TeamList控件时rootview有多少子布局

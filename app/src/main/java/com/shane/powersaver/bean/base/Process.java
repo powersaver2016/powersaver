@@ -28,7 +28,10 @@ import android.graphics.drawable.Drawable;
 import android.util.Log;
 
 /**
- * @author sven
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class Process extends StatElement implements Comparable<Process>, Serializable {
     /**

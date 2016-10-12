@@ -30,7 +30,7 @@ import android.util.Log;
 
 
 /**
- * @author sven
+ * @author shane
  *         Parser for wakeup_sources
  *         <p/>
  *         *********************************

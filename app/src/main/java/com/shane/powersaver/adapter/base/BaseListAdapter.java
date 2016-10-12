@@ -15,9 +15,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 通用的ViewHolder
- * <p/>
- * Created by 火蚁 on 15/4/8.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("unused")
 public abstract class BaseListAdapter<T> extends BaseAdapter implements ViewHolder.Callback {

@@ -23,9 +23,10 @@ import android.os.Parcelable;
 
 
 /**
- * ICS specific Value holder for BatteryStats$HistoryItem
  *
- * @author sven
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class HistoryItemKitKat extends HistoryItem implements Serializable, Parcelable {
     static final long serialVersionUID = 1L;

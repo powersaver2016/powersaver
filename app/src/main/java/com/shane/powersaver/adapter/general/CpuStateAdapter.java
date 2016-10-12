@@ -9,7 +9,10 @@ import com.shane.powersaver.adapter.base.BaseListAdapter;
 import com.shane.powersaver.bean.base.State;
 
 /**
- * Created by shane on 16-8-25.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class CpuStateAdapter extends BaseListAdapter<State> {
     private String systemTime;

@@ -24,7 +24,10 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 
 /**
- * @author sven
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class UidNameResolver {
     protected String[] m_packages;

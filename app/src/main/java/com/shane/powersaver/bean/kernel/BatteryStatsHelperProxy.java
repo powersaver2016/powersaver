@@ -14,7 +14,10 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 /**
- * Created by shane on 16-8-24.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public final class BatteryStatsHelperProxy {
     private static final String TAG = BatteryStatsHelperProxy.class.getSimpleName();

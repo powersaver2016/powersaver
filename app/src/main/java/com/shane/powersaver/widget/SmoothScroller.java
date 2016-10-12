@@ -8,8 +8,10 @@ import android.widget.Scroller;
 import java.lang.reflect.Field;
 
 /**
- * Created by huanghaibin
- * on 16-5-26.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class SmoothScroller extends Scroller {
     private int mDuration = 1200; //

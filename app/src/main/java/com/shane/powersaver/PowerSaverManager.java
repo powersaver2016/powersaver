@@ -6,7 +6,10 @@ import com.shane.powersaver.powerchecker.IPowerChecker;
 import com.shane.powersaver.powerchecker.PowerCheckerService;
 
 /**
- * Created by shane on 16-9-13.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-09-13
  */
 public class PowerSaverManager extends IPowerSaver.Stub {
     private static PowerSaverManager sInstance;

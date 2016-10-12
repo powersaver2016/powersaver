@@ -22,9 +22,10 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 
 /**
- * A DTO for Wakelock
  *
- * @author sven
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class WakelockDto implements Serializable {
 

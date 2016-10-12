@@ -1,19 +1,11 @@
 package com.shane.powersaver.ui;
 
 import com.shane.powersaver.R;
-//import net.oschina.app.fragment.ExploreFragment;
-//import net.oschina.app.fragment.MyInformationFragment;
-import com.shane.powersaver.fragment.BatteryHistorian2;
 import com.shane.powersaver.fragment.MyInformationFragment;
 import com.shane.powersaver.viewpagerfragment.GeneralViewPagerFragment;
-//import net.oschina.app.viewpagerfragment.TweetsViewPagerFragment;
 
 public enum MainTab {
 
-	/*
-	NEWS(0, R.string.main_tab_name_news, R.drawable.tab_icon_new,
-			NewsViewPagerFragment.class),
-			*/
 
     NEWS(0, R.string.main_tab_name_news, R.drawable.tab_icon_new,
             GeneralViewPagerFragment.class),

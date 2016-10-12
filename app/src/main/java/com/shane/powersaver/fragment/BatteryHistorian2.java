@@ -30,8 +30,13 @@ import com.shane.powersaver.util.LogUtil;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 /**
- * Created by shane on 16-8-22.
+ * 综合页面
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-22
  */
 public class BatteryHistorian2 extends BaseFragment {
     private static final String TAG = "BatteryHistorian2";

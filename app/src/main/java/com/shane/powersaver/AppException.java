@@ -27,9 +27,9 @@ import cz.msebera.android.httpclient.HttpException;
 /**
  * 应用程序异常：用于捕获异常和提示错误信息
  *
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @author kymjs (kymjs123@gmali.com)
- * @created 2014年9月25日 下午5:34:05
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("serial")
 public class AppException extends Exception implements UncaughtExceptionHandler {

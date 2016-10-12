@@ -4,7 +4,10 @@
 package com.shane.powersaver.bean.kernel;
 
 /**
- * @author sven
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class BatteryInfoUnavailableException extends Exception {
 

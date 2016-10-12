@@ -21,7 +21,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by shane on 16-8-25.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class CpuStateFragment extends GeneralListFragment<State> {
     private static final String TAG = PowerRankFragment.class.getSimpleName();

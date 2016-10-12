@@ -1,8 +1,10 @@
 package com.shane.powersaver.bean.base;
 
 /**
- * Created by huanghaibin
- * on 16-5-23.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class ResultBean<T> {
     public static final int RESULT_SUCCESS = 1;

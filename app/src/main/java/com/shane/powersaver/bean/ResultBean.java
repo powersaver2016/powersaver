@@ -3,11 +3,10 @@ package com.shane.powersaver.bean;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
- * 操作结果实体类
  *
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @version 创建时间：2014年10月14日 下午2:59:27
- *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("serial")
 @XStreamAlias("oschina")

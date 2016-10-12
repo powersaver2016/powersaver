@@ -4,8 +4,10 @@ import com.shane.powersaver.fragment.base.BaseListFragment;
 import com.shane.powersaver.interf.OnTabReselectListener;
 
 /**
- * Created by JuQiu
- * on 16/6/6.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 
 public abstract class GeneralListFragment<T> extends BaseListFragment<T> implements OnTabReselectListener {

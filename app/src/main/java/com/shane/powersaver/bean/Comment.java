@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 评论实体类
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @created 2014年10月14日 下午3:29:22
  *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("serial")
 @XStreamAlias("comment")
@@ -24,39 +24,39 @@ public class Comment extends Entity implements Parcelable {
 	public static final String BUNDLE_KEY_CATALOG = "bundle_key_catalog";
 	public static final String BUNDLE_KEY_BLOG = "bundle_key_blog";
 	public static final String BUNDLE_KEY_OPERATION = "bundle_key_operation";
-	
+
 	public static final int OPT_ADD = 1;
 	public static final int OPT_REMOVE = 2;
-	
+
 	public final static int CLIENT_MOBILE = 2;
 	public final static int CLIENT_ANDROID = 3;
 	public final static int CLIENT_IPHONE = 4;
 	public final static int CLIENT_WINDOWS_PHONE = 5;
-	
+
 	@XStreamAlias("portrait")
 	private String portrait;
-	
+
 	@XStreamAlias("content")
 	private String content;
-	
+
 	@XStreamAlias("author")
 	private String author;
-	
+
 	@XStreamAlias("authorid")
 	private int authorId;
-	
+
 	@XStreamAlias("pubDate")
 	private String pubDate;
-	
+
 	@XStreamAlias("appclient")
 	private int appClient;
-	
+
 	@XStreamAlias("replies")
 	private List<Reply> replies = new ArrayList<Reply>();
-	
+
 	@XStreamAlias("refers")
 	private List<Refer> refers = new ArrayList<Refer>();
-	
+
 	@SuppressWarnings("unchecked")
 	public Comment(Parcel source) {
 		id = source.readInt();
@@ -70,7 +70,7 @@ public class Comment extends Entity implements Parcelable {
 		replies = source.readArrayList(Reply.class.getClassLoader());
 		refers = source.readArrayList(Refer.class.getClassLoader());
 	}
-	
+
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
 		dest.writeInt(id);
@@ -84,12 +84,12 @@ public class Comment extends Entity implements Parcelable {
 		dest.writeList(replies);
 		dest.writeList(refers);
 	}
-	
+
 	@Override
 	public int describeContents() {
 		return 0;
 	}
-	
+
 	public String getPortrait() {
 		return portrait;
 	}
@@ -162,7 +162,7 @@ public class Comment extends Entity implements Parcelable {
 		public String rpubDate;
 		@XStreamAlias("rcontent")
 		public String rcontent;
-		
+
 		public Reply() {
 		}
 
@@ -171,7 +171,7 @@ public class Comment extends Entity implements Parcelable {
 			rpubDate = source.readString();
 			rcontent = source.readString();
 		}
-		
+
 		public String getRauthor() {
 			return rauthor;
 		}
@@ -190,7 +190,7 @@ public class Comment extends Entity implements Parcelable {
 		public void setRcontent(String rcontent) {
 			this.rcontent = rcontent;
 		}
-		
+
 		@Override
 		public void writeToParcel(Parcel dest, int flags) {
 			dest.writeString(rauthor);

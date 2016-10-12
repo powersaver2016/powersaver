@@ -9,7 +9,10 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 
 /**
- * Created by shane on 16-8-24.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class PowerProfileProxy {
     private static final String TAG = PowerProfileProxy.class.getSimpleName();

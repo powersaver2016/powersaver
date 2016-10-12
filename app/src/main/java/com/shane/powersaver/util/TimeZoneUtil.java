@@ -4,9 +4,10 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * @author HuangWenwei
- * 
- * @date 2014年10月9日
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class TimeZoneUtil {
 

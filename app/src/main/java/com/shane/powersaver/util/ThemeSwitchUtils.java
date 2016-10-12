@@ -6,8 +6,10 @@ import com.shane.powersaver.AppContext;
 import com.shane.powersaver.R;
 
 /**
- * 白天和夜间模式切换
- * Created by 火蚁 on 15/5/26.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class ThemeSwitchUtils {
 

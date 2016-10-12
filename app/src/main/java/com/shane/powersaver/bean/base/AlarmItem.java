@@ -35,9 +35,10 @@ import android.util.Log;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Value holder for alarm items
  *
- * @author sven
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class AlarmItem implements Serializable {
     /**

@@ -3,9 +3,10 @@ package com.shane.powersaver.bean;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
- * 聊天详细信息实体类
- * @author 铂金小鸟（http://my.oschina.net/fants）
- * @Created 2015年9月16日 上午4:20:01
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("serial")
 @XStreamAlias("message")

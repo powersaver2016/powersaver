@@ -6,34 +6,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 新闻列表实体类
- * 		
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @created 2014年9月27日 下午5:55:58
  *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("serial")
 @XStreamAlias("oschina")
 public class NewsList extends Entity implements ListEntity<News> {
-	
+
 	public final static String PREF_READED_NEWS_LIST = "readed_news_list.pref";
 
 	public final static int CATALOG_ALL = 1;
 	public final static int CATALOG_INTEGRATION = 2;
 	public final static int CATALOG_SOFTWARE = 3;
-	
+
 	public final static int CATALOG_WEEK = 4;
 	public final static int CATALOG_MONTH = 5;
-	
+
 	@XStreamAlias("catalog")
 	private int catalog;
-	
+
 	@XStreamAlias("pagesize")
 	private int pageSize;
-	
+
 	@XStreamAlias("newscount")
 	private int newsCount;
-	
+
 	@XStreamAlias("newslist")
 	private List<News> list = new ArrayList<News>();
 

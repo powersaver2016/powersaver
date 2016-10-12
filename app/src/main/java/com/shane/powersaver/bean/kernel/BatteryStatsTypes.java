@@ -17,11 +17,10 @@ package com.shane.powersaver.bean.kernel;
 
 
 /**
- * This class holds the required constants from BatteryStats
- * Copyright (C) 2008 The Android Open Source Project applies
  *
- * @author sven
- * @see android.os.BatteryStats
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class BatteryStatsTypes {
     /**

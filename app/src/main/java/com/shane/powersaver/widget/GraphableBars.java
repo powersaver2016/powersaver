@@ -25,7 +25,10 @@ import android.util.Log;
 import android.widget.ImageView;
 
 /**
- * @author sven
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class GraphableBars extends ImageView {
     private static final String TAG = "GraphableBars";
@@ -61,7 +64,7 @@ public class GraphableBars extends ImageView {
     public void setValues(double[] values, double maxValue) {
         mValues = values.clone();
         for (int i = 0; i < values.length; i++) {
-//            Log.d(TAG, ">>> " + m_name + " calculating bar width: " + mValues[i] + " / " + maxValue);             
+//            Log.d(TAG, ">>> " + m_name + " calculating bar width: " + mValues[i] + " / " + maxValue);
             mValues[i] = (double) ((float) mValues[i] / (float) maxValue);
 //            Log.d(TAG, ">>> = " + mValues[i]);
 

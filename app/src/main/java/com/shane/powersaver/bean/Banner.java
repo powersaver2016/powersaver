@@ -1,8 +1,10 @@
 package com.shane.powersaver.bean;
 
 /**
- * Created by huanghaibin
- * on 16-5-23.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class Banner extends Base {
     public static final int BANNER_TYPE_URL = 0;//链接新闻

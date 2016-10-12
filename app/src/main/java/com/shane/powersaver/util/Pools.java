@@ -1,7 +1,3 @@
-/**
- * Copyright (C) 2013, Xiaomi Inc. All rights reserved.
- */
-
 package com.shane.powersaver.util;
 
 import com.shane.powersaver.util.concurrent.ConcurrentRingQueue;
@@ -11,7 +7,7 @@ import java.util.HashMap;
 
 /**
  * Pools for cache.<p>
- * 
+ *
  * <h3>Usage</h3>
  * <pre>
  *   Pools.SimplePool&lt;Object&gt; objectPool = Pools.createSimplePool(new Pools.Manager&lt;Object&gt;() {

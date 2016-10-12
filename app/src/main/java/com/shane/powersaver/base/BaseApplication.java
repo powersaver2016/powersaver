@@ -26,7 +26,7 @@ import com.shane.powersaver.util.StringUtils;
  *
  * @author shane（https://github.com/lxxgreat）
  * @version 1.0
- * @created 2016-08-07 17:48:10
+ * @created 2016-08-07
  *
  */
 

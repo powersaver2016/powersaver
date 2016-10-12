@@ -16,7 +16,7 @@ import com.shane.powersaver.widget.PagerSlidingTabStrip;
  *
  * @author shane（https://github.com/lxxgreat）
  * @version 1.0
- * @created 2016-08-07 18:08:08
+ * @created 2016-08-07
  *
  */
 public abstract class BaseViewPagerFragment extends BaseFragment {

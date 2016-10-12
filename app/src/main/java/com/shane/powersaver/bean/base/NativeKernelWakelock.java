@@ -31,7 +31,10 @@ import com.shane.powersaver.util.StringUtils;
 import android.util.Log;
 
 /**
- * @author sven
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class NativeKernelWakelock extends StatElement implements Comparable<NativeKernelWakelock>, Serializable {
 

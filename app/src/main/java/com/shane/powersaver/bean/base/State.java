@@ -26,9 +26,10 @@ import com.google.gson.annotations.SerializedName;
 
 
 /**
- * Value holder for CpuState
  *
- * @author sven
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 
 /** simple struct for states/time */
@@ -175,7 +176,7 @@ public class State extends StatElement implements Comparable<State>, Serializabl
 
     /**
      * Compare a given Wakelock with this object.
-     * If the duration of this object is 
+     * If the duration of this object is
      * greater than the received object,
      * then this object is greater than the other.
      */

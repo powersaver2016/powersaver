@@ -14,11 +14,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * xml解析工具类
- * 
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * @version 创建时间：2014年9月27日 下午2:04:19
- * 
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 
 public class XmlUtils {
@@ -27,7 +26,7 @@ public class XmlUtils {
 
     /**
      * 将一个xml流转换为bean实体类
-     * 
+     *
      * @param type
      * @param is
      * @return
@@ -59,7 +58,7 @@ public class XmlUtils {
         }
         return obj;
     }
-    
+
     public static <T> T toBean(Class<T> type, byte[] bytes) {
         if (bytes == null) return null;
         return toBean(type, new ByteArrayInputStream(bytes));

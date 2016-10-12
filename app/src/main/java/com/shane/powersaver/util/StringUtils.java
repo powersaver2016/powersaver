@@ -20,7 +20,7 @@ import java.util.regex.Pattern;
 /**
  * 字符串操作工具包
  *
- * @author liux (http://my.oschina.net/liux)
+ * @author shane (https://github.com/lxxgreat)
  * @version 1.0
  * @created 2012-3-21
  */

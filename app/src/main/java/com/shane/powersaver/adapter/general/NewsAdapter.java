@@ -9,8 +9,10 @@ import com.shane.powersaver.fragment.general.NewsFragment;
 import com.shane.powersaver.util.StringUtils;
 
 /**
- * Created by huanghaibin
- * on 16-5-23.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class NewsAdapter extends BaseListAdapter<News> {
     private String systemTime;

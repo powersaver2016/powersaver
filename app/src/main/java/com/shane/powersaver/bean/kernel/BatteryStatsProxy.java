@@ -55,10 +55,10 @@ import java.util.Map;
 
 
 /**
- * A proxy to the non-public API BatteryStats
- * http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/2.3.3_r1/android/os/BatteryStats.java/?v=source
  *
- * @author sven
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class BatteryStatsProxy {
     /*
@@ -113,10 +113,10 @@ public class BatteryStatsProxy {
 		 * As BatteryStats is a service we need to get a binding using the IBatteryStats.Stub.getStatistics()
 		 * method (using reflection).
 		 * If we would be using a public API the code would look like:
-		 * @see com.android.settings.fuelgauge.PowerUsageSummary.java 
+		 * @see com.android.settings.fuelgauge.PowerUsageSummary.java
 		 * protected void onCreate(Bundle icicle) {
          *  super.onCreate(icicle);
-		 *	
+		 *
          *  mStats = (BatteryStatsImpl)getLastNonConfigurationInstance();
 		 *
          *  addPreferencesFromResource(R.xml.power_usage_summary);

@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by huanghaibin
- * on 16-5-24.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class PageBean<T> implements Serializable {
     private List<T> items;

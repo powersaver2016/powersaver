@@ -5,11 +5,10 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
 import java.io.Serializable;
 
 /**
- * 通知信息实体类
- * 
- * @author liux (http://my.oschina.net/liux)
+ *
+ * @author shane（https://github.com/lxxgreat）
  * @version 1.0
- * @created 2012-3-21
+ * @created 2016-08-07
  */
 @SuppressWarnings("serial")
 @XStreamAlias("notice")

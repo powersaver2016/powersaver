@@ -28,9 +28,10 @@ import java.util.concurrent.Executors;
 import cz.msebera.android.httpclient.Header;
 
 /**
- * T as the base bean
- * Created by huanghaibin
- * on 16-5-23.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public abstract class BaseListFragment<T> extends BaseFragment implements
         SuperRefreshLayout.SuperRefreshLayoutListener,

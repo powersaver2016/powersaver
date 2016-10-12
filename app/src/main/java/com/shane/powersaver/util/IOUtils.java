@@ -1,6 +1,3 @@
-/**
- * Copyright (C) 2013, Xiaomi Inc. All rights reserved.
- */
 
 package com.shane.powersaver.util;
 

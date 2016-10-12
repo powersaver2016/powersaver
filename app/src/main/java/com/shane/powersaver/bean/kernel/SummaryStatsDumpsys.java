@@ -19,9 +19,10 @@ import com.shane.powersaver.util.NonRootShell;
 import com.shane.powersaver.util.RootShell;
 
 /**
- * Parses the content of 'dumpsys battery'
  *
- * @author sven
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class SummaryStatsDumpsys {
     static final String TAG = "SummaryStatsDumpsys";

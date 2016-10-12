@@ -17,13 +17,10 @@ package com.shane.powersaver.bean.kernel;
 
 
 /**
- * This class retrieves time in state info from sysfs
- * Adapted from
- * https://github.com/project-voodoo/android_oc-uv_stability_test
- * and
- * https://github.com/storm717/cpuspy
  *
- * @author sven
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 
 import java.io.InputStream;

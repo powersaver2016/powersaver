@@ -5,7 +5,10 @@ import android.os.SystemClock;
 import android.util.Log;
 
 /**
- * Created by shane on 16-8-23.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class BatteryStatsHelper {
     private static final String TAG = BatteryStatsHelper.class.getSimpleName();

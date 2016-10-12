@@ -12,8 +12,10 @@ import com.shane.powersaver.R;
 
 
 /**
- * Created by huanghaibin
- * on 16-5-19.
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 @SuppressWarnings("unused")
 public class CirclePagerIndicator extends View implements PagerIndicator {

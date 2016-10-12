@@ -19,10 +19,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 新闻资讯
- * 
- * @author FireAnt（http://my.oschina.net/LittleDY）
- * 
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
  */
 public class NewsFragment extends BaseListFragment<News> implements
         OnTabReselectListener {

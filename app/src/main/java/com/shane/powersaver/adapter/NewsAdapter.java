@@ -17,6 +17,12 @@ import com.shane.powersaver.util.ThemeSwitchUtils;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
+ */
 public class NewsAdapter extends ListBaseAdapter<News> {
 
     @SuppressLint("InflateParams")

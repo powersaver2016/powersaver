@@ -18,6 +18,13 @@ import com.bumptech.glide.RequestManager;
 import com.shane.powersaver.R;
 import com.shane.powersaver.util.ImageLoader;
 
+/**
+ *
+ * @author shane（https://github.com/lxxgreat）
+ * @version 1.0
+ * @created 2016-08-07
+ */
+
 @SuppressWarnings("unused")
 public class ViewHolder {
     private SparseArray<View> mViews;

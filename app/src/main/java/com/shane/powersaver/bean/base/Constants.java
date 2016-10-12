@@ -12,11 +12,11 @@ public class Constants {
     public static final int PER_USER_RANGE = 100000;
     public static final int FIRST_APPLICATION_UID = 10000;
 
-    public static final String LAST_UPDATE_TIME = "powerkeeper_cloudcontrol_last_update_time";
-    public static final String ENHANCE_HITS = "powerkeeper_hide_mode_enhance_hits";
-    public static final String DAY_UPDATE_TIMES = "powerkeeper_cloudcontrol_day_update_times";
-    public static final String LAST_DATA_MD5 = "powerkeeper_cloudcontrol_last_data_md5";
-    public static final String HIDEMODE_UPDATE_TIME = "hidemode_update_time";
+    public static final String LAST_UPDATE_TIME = "powersaver_cloudcontrol_last_update_time";
+    public static final String ENHANCE_HITS = "powersaver_hide_mode_enhance_hits";
+    public static final String DAY_UPDATE_TIMES = "powersaver_cloudcontrol_day_update_times";
+    public static final String LAST_DATA_MD5 = "powersaver_cloudcontrol_last_data_md5";
+    public static final String HIDEMODE_UPDATE_TIME = "powersaver_update_time";
     public static final String ACTION_ALARM = "action_alarm";
     public static final long CTA_QUERY_PERIOD = 3 * DateUtils.DAY_IN_MILLIS; //3days
     public static final long QUERY_PERIOD = DateUtils.DAY_IN_MILLIS; //1day
@@ -28,10 +28,10 @@ public class Constants {
 
     public static final String PACKAGE_NAME = "com.shane.powersaver";
 
-    public static final String INTENT_ACTION_USER_CHANGE = "net.oschina.action.USER_CHANGE";
-    public static final String INTENT_ACTION_COMMENT_CHANGED = "net.oschina.action.COMMENT_CHANGED";
-    public static final String INTENT_ACTION_NOTICE = "net.oschina.action.APPWIDGET_UPDATE";
-    public static final String INTENT_ACTION_LOGOUT = "net.oschina.action.LOGOUT";
+    public static final String INTENT_ACTION_USER_CHANGE = PACKAGE_NAME + ".action.USER_CHANGE";
+    public static final String INTENT_ACTION_COMMENT_CHANGED = PACKAGE_NAME + ".action.COMMENT_CHANGED";
+    public static final String INTENT_ACTION_NOTICE = PACKAGE_NAME + ".action.APPWIDGET_UPDATE";
+    public static final String INTENT_ACTION_LOGOUT = PACKAGE_NAME + ".action.LOGOUT";
     public static final String WEICHAT_APPID = "wxa8213dc827399101";
     public static final String WEICHAT_SECRET = "5c716417ce72ff69d8cf0c43572c9284";
 
