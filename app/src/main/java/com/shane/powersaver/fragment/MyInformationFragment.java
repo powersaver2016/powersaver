@@ -239,7 +239,6 @@ public class MyInformationFragment extends BaseFragment {
 
     private void sendRequestData() {
 //        int uid = AppContext.getInstance().getLoginUid();
-//        OSChinaApi.getMyInformation(uid, mHandler);
     }
 
     private String getCacheKey() {

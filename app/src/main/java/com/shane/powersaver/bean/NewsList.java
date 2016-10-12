@@ -12,7 +12,7 @@ import java.util.List;
  * @created 2016-08-07
  */
 @SuppressWarnings("serial")
-@XStreamAlias("oschina")
+@XStreamAlias("powersaver")
 public class NewsList extends Entity implements ListEntity<News> {
 
 	public final static String PREF_READED_NEWS_LIST = "readed_news_list.pref";

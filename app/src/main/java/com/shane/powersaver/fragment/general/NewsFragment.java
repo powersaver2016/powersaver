@@ -3,27 +3,19 @@ package com.shane.powersaver.fragment.general;
 import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
-import com.loopj.android.http.TextHttpResponseHandler;
-
-import com.shane.powersaver.AppContext;
-import com.shane.powersaver.R;
 import com.shane.powersaver.adapter.base.BaseListAdapter;
 import com.shane.powersaver.adapter.general.NewsAdapter;
-//import net.oschina.app.api.remote.OSChinaApi;
 import com.shane.powersaver.bean.Banner;
 import com.shane.powersaver.bean.base.PageBean;
 import com.shane.powersaver.bean.base.ResultBean;
 import com.shane.powersaver.bean.news.News;
 import com.shane.powersaver.cache.CacheManager;
-import com.shane.powersaver.util.UIHelper;
 import com.shane.powersaver.widget.ViewNewsHeader;
 
 import java.lang.reflect.Type;
 
-import cz.msebera.android.httpclient.Header;
 
 /**
  *

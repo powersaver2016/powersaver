@@ -4,14 +4,12 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.shane.powersaver.adapter.NewsAdapter;
-//import com.shane.powersaver.api.remote.OSChinaApi;
 import com.shane.powersaver.base.BaseListFragment;
 import com.shane.powersaver.base.ListBaseAdapter;
 import com.shane.powersaver.bean.News;
 import com.shane.powersaver.bean.NewsList;
 import com.shane.powersaver.interf.OnTabReselectListener;
 import com.shane.powersaver.ui.empty.EmptyLayout;
-import com.shane.powersaver.util.UIHelper;
 import com.shane.powersaver.util.XmlUtils;
 
 import java.io.InputStream;
@@ -59,7 +57,6 @@ public class NewsFragment extends BaseListFragment<News> implements
     @Override
     protected void sendRequestData() {
 
-//        OSChinaApi.getNewsList(mCatalog, mCurrentPage, mHandler);
     }
 
     @Override

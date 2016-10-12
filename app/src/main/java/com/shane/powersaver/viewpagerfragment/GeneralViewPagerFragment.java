@@ -8,15 +8,11 @@ import com.shane.powersaver.R;
 import com.shane.powersaver.adapter.ViewPageFragmentAdapter;
 import com.shane.powersaver.base.BaseListFragment;
 import com.shane.powersaver.base.BaseViewPagerFragment;
-//import net.oschina.app.bean.BlogList;
 import com.shane.powersaver.bean.NewsList;
-//import net.oschina.app.fragment.general.BlogFragment;
-//import net.oschina.app.fragment.general.EventFragment;
 import com.shane.powersaver.fragment.BatteryHistorian2;
 import com.shane.powersaver.fragment.general.CpuStateFragment;
 import com.shane.powersaver.fragment.general.GeneralListFragment;
 import com.shane.powersaver.fragment.general.NewsFragment;
-//import net.oschina.app.fragment.general.QuestionFragment;
 import com.shane.powersaver.fragment.general.PowerRankFragment;
 import com.shane.powersaver.interf.OnTabReselectListener;
 

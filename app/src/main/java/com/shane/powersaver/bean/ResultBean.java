@@ -9,7 +9,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @created 2016-08-07
  */
 @SuppressWarnings("serial")
-@XStreamAlias("oschina")
+@XStreamAlias("powersaver")
 public class ResultBean extends Base {
 
     @XStreamAlias("result")
