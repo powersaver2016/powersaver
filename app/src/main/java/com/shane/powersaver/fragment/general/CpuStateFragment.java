@@ -107,6 +107,7 @@ public class CpuStateFragment extends GeneralListFragment<State> {
                 setFooterType(TYPE_NO_MORE);
                 mRefreshLayout.setNoMoreData();
                 mRefreshLayout.setOnRefreshListener(null);
+                mRefreshLayout.setEnabled(false);
                 break;
         }
     }
