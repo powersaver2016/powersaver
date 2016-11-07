@@ -25,6 +25,7 @@ import com.shane.powersaver.bean.kernel.BatteryStatsHelperProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypesLolipop;
+import com.shane.powersaver.util.BatteryInfoHelper;
 import com.shane.powersaver.util.FileUtil;
 import com.shane.powersaver.util.LogUtil;
 import com.shane.powersaver.util.TextUtils;
@@ -51,11 +52,12 @@ public class BatteryInfo extends BaseFragment {
     public static final String NORMAL_CURRENT_NOW = "/sys/class/power_supply/battery/current_now";
     public static final String HERMES_CURRENT_NOW = "/sys/class/power_supply/usb/device/FG_Battery_CurrentConsumption";
 
-    String mCurrentNowPath;
+    private BatteryInfoHelper mBatteryInfoHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = this.getContext();
         initData();
     }
 
@@ -144,8 +146,17 @@ public class BatteryInfo extends BaseFragment {
     private void getData() throws Exception {
         mResultStats.clear();
 
-        String currentNow = FileUtil.getFileString(mCurrentNowPath);
-        mResultStats.add("CurrentNow:" + currentNow + "\n");
+        mResultStats.add("CurrentNow:" + mBatteryInfoHelper.getBatteryCurrentNow() + "\n");
+        mResultStats.add("Capacity:" + mBatteryInfoHelper.getBatteryCapacity() + "\n");
+        mResultStats.add("Percent:" + mBatteryInfoHelper.getBatteryPercent() + "\n");
+        mResultStats.add("ChargeTime:" + mBatteryInfoHelper.getBatteryChargeTime() + "\n");
+        mResultStats.add("StandbyTime:" + mBatteryInfoHelper.getBatteryStandbyTime() + "\n");
+        mResultStats.add("Technology:" + mBatteryInfoHelper.getTechnology() + "\n");
+        mResultStats.add("BatteryState:" + mBatteryInfoHelper.getBatteryState() + "\n");
+        mResultStats.add("Health:" + mBatteryInfoHelper.getHealth() + "\n");
+        mResultStats.add("Temperature:" + mBatteryInfoHelper.getTemperature() + "\n");
+        mResultStats.add("Voltage:" + mBatteryInfoHelper.getVoltage() + "\n");
+
     }
 
     private void requestData(boolean refresh) {
@@ -160,13 +171,7 @@ public class BatteryInfo extends BaseFragment {
     @Override
     public void initData() {
         mResultStats = new ArrayList<String>();
-        String res = FileUtil.getFileString(HERMES_CURRENT_NOW);
-        if (!TextUtils.isEmpty(res)) {
-            mCurrentNowPath = HERMES_CURRENT_NOW;
-        } else {
-            mCurrentNowPath = NORMAL_CURRENT_NOW;
-        }
-        LogUtil.d(TAG, "mCurrentNowPath:" + mCurrentNowPath);
+        mBatteryInfoHelper = BatteryInfoHelper.getInstance(mContext);
     }
 
 }
