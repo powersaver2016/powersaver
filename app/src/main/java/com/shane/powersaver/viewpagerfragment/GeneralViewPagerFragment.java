@@ -10,6 +10,7 @@ import com.shane.powersaver.base.BaseListFragment;
 import com.shane.powersaver.base.BaseViewPagerFragment;
 import com.shane.powersaver.bean.NewsList;
 import com.shane.powersaver.fragment.BatteryHistorian2;
+import com.shane.powersaver.fragment.BatteryInfo;
 import com.shane.powersaver.fragment.general.CpuStateFragment;
 import com.shane.powersaver.fragment.general.GeneralListFragment;
 import com.shane.powersaver.fragment.general.NewsFragment;
@@ -39,7 +40,7 @@ public class GeneralViewPagerFragment extends BaseViewPagerFragment implements
 
         adapter.addTab(title[0], "news", BatteryHistorian2.class,
                 getBundle(NewsList.CATALOG_ALL));
-        adapter.addTab(title[1], "latest_blog", NewsFragment.class,
+        adapter.addTab(title[1], "latest_blog", BatteryInfo.class,
                 getBundle(NewsList.CATALOG_WEEK));
         adapter.addTab(title[2], "question", CpuStateFragment.class,
                 getBundle(NewsList.CATALOG_ALL));
