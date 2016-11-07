@@ -48,6 +48,8 @@ public class State extends StatElement implements Comparable<State>, Serializabl
     @SerializedName("duration_ms")
     public long m_duration = 0;
 
+    public String mName = null;
+
     public State() {
 
     }
@@ -82,11 +84,15 @@ public class State extends StatElement implements Comparable<State>, Serializabl
     }
 
     public String getName() {
-        String ret = formatFreq(m_freq);
-        if (ret.equals("0 kHz")) {
-            ret = "Deep Sleep";
+        if (mName == null) {
+            String ret = formatFreq(m_freq);
+            if (ret.equals("0 kHz")) {
+                ret = "Deep Sleep";
+            }
+            return ret;
+        } else {
+            return mName;
         }
-        return ret;
     }
 
     public String toString() {

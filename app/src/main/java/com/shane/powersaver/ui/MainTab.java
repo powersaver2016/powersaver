@@ -2,6 +2,7 @@ package com.shane.powersaver.ui;
 
 import com.shane.powersaver.R;
 import com.shane.powersaver.fragment.MyInformationFragment;
+import com.shane.powersaver.fragment.TopProcessFragment;
 import com.shane.powersaver.viewpagerfragment.GeneralViewPagerFragment;
 
 public enum MainTab {
@@ -17,7 +18,7 @@ public enum MainTab {
             null),
 
     EXPLORE(3, R.string.main_tab_name_explore, R.drawable.tab_icon_explore,
-            GeneralViewPagerFragment.class),
+            TopProcessFragment.class),
 
     ME(4, R.string.main_tab_name_my, R.drawable.tab_icon_me,
             MyInformationFragment.class);

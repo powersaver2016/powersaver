@@ -1,80 +1,96 @@
 package com.shane.powersaver.util;
 
-import com.shane.powersaver.AppContext;
-
-import java.util.Arrays;
+import android.util.Log;
 
 /**
- * LogUtil
- *
  * @author shane（https://github.com/lxxgreat）
  * @version 1.0
- * @created 2016-08-11 18:59
- *
+ * @created 2016-10-23
  */
-
 public class LogUtil {
-    private static final String TAG = "PowerSaver";
-    private static final boolean DEBUG = AppContext.DEBUG;
 
-    private LogUtil() {
-    }
+	private static final String TAG = "PowerSaver";
 
-    public static void d(String tag, String msg) {
-        if (DEBUG) {
-            android.util.Log.d(TAG, tag + ":" + msg);
-        }
-    }
+	private static final int LOG_LEVEL = 6;
 
-    public static void d(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            android.util.Log.d(TAG, tag + ":" + msg, tr);
-        }
-    }
+	private static final int VERBOSE = 5;
+	private static final int DEBUG = 4;
+	private static final int INFO = 3;
+	private static final int WARN = 2;
+	private static final int ERROR = 1;
+	private static final int WTF = 0;
 
-    public static void e(String tag, String msg) {
-        android.util.Log.e(TAG, tag + ":" + msg);
-    }
+	private LogUtil() { /* empty */ }
 
-    public static void e(String tag, String msg, Throwable tr) {
-        android.util.Log.e(TAG, tag + ":" + msg, tr);
-    }
+	public static void v(String tag, String msg) {
+		if (LOG_LEVEL > VERBOSE) {
+			Log.v(TAG, tag + ":" + msg);
+		}
+	}
 
-    public static void v(String tag, String msg) {
-        android.util.Log.v(TAG, tag + ":" + msg);
-    }
+	public static void v(String tag, String msg, Throwable tr) {
+		if (LOG_LEVEL > VERBOSE) {
+			Log.v(TAG, tag + ":" + msg, tr);
+		}
+	}
 
-    public static void v(String tag, String msg, Throwable tr) {
-        android.util.Log.v(TAG, tag + ":" + msg, tr);
-    }
+	public static void d(String tag, String msg) {
+		if (LOG_LEVEL > DEBUG) {
+			Log.d(TAG, tag + ":" + msg);
+		}
+	}
 
-    public static void i(String tag, String msg) {
-        if (DEBUG) {
-            android.util.Log.i(TAG, tag + ":" + msg);
-        }
-    }
+	public static void d(String tag, String msg, Throwable tr) {
+		if (LOG_LEVEL > DEBUG) {
+			Log.d(TAG, tag + ":" + msg, tr);
+		}
+	}
 
-    public static void i(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            android.util.Log.i(TAG, tag + ":" + msg, tr);
-        }
-    }
+	public static void i(String tag, String msg) {
+		if (LOG_LEVEL > INFO) {
+			Log.i(TAG, tag + ":" + msg);
+		}
+	}
 
-    public static void wtf(String tag, String msg) {
-        android.util.Log.wtf(TAG, tag + ":" + msg);
-    }
+	public static void i(String tag, String msg, Throwable tr) {
+		if (LOG_LEVEL > INFO) {
+			Log.i(TAG, tag + ":" + msg, tr);
+		}
+	}
 
-    public static void wtf(String tag, String msg, Throwable tr) {
-        android.util.Log.wtf(TAG, tag + ":" + msg, tr);
-    }
+	public static void w(String tag, String msg) {
+		if (LOG_LEVEL > WARN) {
+			Log.w(TAG, tag + ":" + msg);
+		}
+	}
 
-    public static String logify(String privacy) {
-        if (privacy == null) {
-            return null;
-        } else {
-            char[] log = new char[privacy.length()];
-            Arrays.fill(log, '*');
-            return new String(log);
-        }
-    }
+	public static void w(String tag, String msg, Throwable tr) {
+		if (LOG_LEVEL > WARN) {
+			Log.w(TAG, tag + ":" + msg, tr);
+		}
+	}
+
+	public static void e(String tag, String msg) {
+		if (LOG_LEVEL > ERROR) {
+			Log.e(TAG, tag + ":" + msg);
+		}
+	}
+
+	public static void e(String tag, String msg, Throwable tr) {
+		if (LOG_LEVEL > ERROR) {
+			Log.e(TAG, tag + ":" + msg, tr);
+		}
+	}
+
+	public static void wtf(String tag, String msg) {
+		if (LOG_LEVEL > WTF) {
+			Log.wtf(TAG, tag + ":" + msg);
+		}
+	}
+
+	public static void wtf(String tag, String msg, Throwable tr) {
+		if (LOG_LEVEL > WTF) {
+			Log.wtf(TAG, tag + ":" + msg, tr);
+		}
+	}
 }
