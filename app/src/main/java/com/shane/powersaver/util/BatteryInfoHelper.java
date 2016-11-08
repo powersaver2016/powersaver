@@ -1,4 +1,3 @@
-
 package com.shane.powersaver.util;
 
 import android.content.Context;
@@ -7,16 +6,14 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.BatteryManager;
-import android.os.Build;
-import android.util.Log;
 import android.text.TextUtils;
-//import com.android.internal.os.PowerProfile;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.File;
-import java.io.IOException;
+
+//import com.android.internal.os.PowerProfile;
 
 public class BatteryInfoHelper {
     private static final String TAG = BatteryInfoHelper.class.getSimpleName();

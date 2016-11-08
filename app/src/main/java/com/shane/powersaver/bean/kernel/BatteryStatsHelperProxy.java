@@ -1,7 +1,6 @@
 package com.shane.powersaver.bean.kernel;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.shane.powersaver.bean.base.BatterySipper;
 import com.shane.powersaver.bean.base.UidInfo;
@@ -27,6 +26,7 @@ public final class BatteryStatsHelperProxy {
     private Object mInstance;
     private boolean mEnvReady;
     private Context mContext;
+    Object mLock = new Object();
 
     synchronized public static BatteryStatsHelperProxy getInstance(Context ctx) {
         if (mProxy == null) {
@@ -73,7 +73,7 @@ public final class BatteryStatsHelperProxy {
 
             method.invoke(mInstance, params);
         } catch (Exception e) {
-            Log.e(TAG, "An exception occured in create(). Message: " + e.getMessage() + ", cause: " + Log.getStackTraceString(e));
+            LogUtil.e(TAG, "An exception occured in create(): ", e);
         }
     }
 
@@ -90,52 +90,53 @@ public final class BatteryStatsHelperProxy {
 
             method.invoke(mInstance, params);
         } catch (Exception e) {
-            LogUtil.e(TAG, "An exception occured in refreshStats(). Message: " + e.getMessage() + ", cause: " + Log.getStackTraceString(e));
+            LogUtil.e(TAG, "An exception occured in refreshStats(): ", e);
         }
     }
 
     @SuppressWarnings("unchecked")
-    public synchronized ArrayList<BatterySipper> getUsageList() {
+    public ArrayList<BatterySipper> getUsageList() {
         ArrayList<BatterySipper> myStats = new ArrayList<BatterySipper>();
+        synchronized(mLock) {
+            try {
+                ClassLoader cl = mContext.getClassLoader();
+                Class batterySipper = cl.loadClass("com.android.internal.os.BatterySipper");
+                Class drainType = cl.loadClass("com.android.internal.os.BatterySipper$DrainType");
+                Class iBatteryStatsUid = cl.loadClass("com.android.internal.os.BatteryStatsImpl$Uid");
+                Method methodGetUid = iBatteryStatsUid.getMethod("getUid");
 
-        try {
-            ClassLoader cl = mContext.getClassLoader();
-            Class batterySipper = cl.loadClass("com.android.internal.os.BatterySipper");
-            Class drainType = cl.loadClass("com.android.internal.os.BatterySipper$DrainType");
-            Class iBatteryStatsUid = cl.loadClass("com.android.internal.os.BatteryStatsImpl$Uid");
-            Method methodGetUid = iBatteryStatsUid.getMethod("getUid");
+                Method method = mClassDefinition.getDeclaredMethod("getUsageList", (Class[])null);
+                ArrayList<Object> sippers = (ArrayList<Object>)method.invoke(mInstance, (Object[])null);
 
-            Method method = mClassDefinition.getDeclaredMethod("getUsageList", (Class[])null);
-            ArrayList<Object> sippers = (ArrayList<Object>)method.invoke(mInstance, (Object[])null);
+                Field totalPowerMah = batterySipper.getField("totalPowerMah");
+                Field drainTypeField = batterySipper.getField("drainType");
+                Field uidObj = batterySipper.getField("uidObj");
 
-            Field totalPowerMah = batterySipper.getField("totalPowerMah");
-            Field drainTypeField = batterySipper.getField("drainType");
-            Field uidObj = batterySipper.getField("uidObj");
+                BatterySipper.sBatteryCapacity = PowerProfileProxy.getInstance(mContext).getBatteryCapacity();
+                LogUtil.i(TAG, "Thread:" + Thread.currentThread());
+                for(int i = 0; i < sippers.size(); i++) {
+                    Object obj = sippers.get(i);
+                    double tpm = (double)totalPowerMah.get(obj);
+                    String name = drainTypeField.get(obj).toString();
+                    LogUtil.i(TAG, "name:====" + name);
+                    BatterySipper bs = new BatterySipper(name, tpm);
 
-            BatterySipper.sBatteryCapacity = PowerProfileProxy.getInstance(mContext).getBatteryCapacity();
+                    Object myUid = uidObj.get(obj);
+                    Integer uid = 0;
+                    if (myUid != null) {
+                        uid = (Integer) methodGetUid.invoke(myUid);
+                    }
 
-            for(Object obj : sippers) {
-                double tpm = (double)totalPowerMah.get(obj);
-                String name = drainTypeField.get(obj).toString();
-                LogUtil.i(TAG, "name:====" + name);
-                BatterySipper bs = new BatterySipper(name, tpm);
+                    bs.setUid(uid);
+                    UidInfo myInfo = UidNameResolver.getInstance(mContext).getNameForUid(uid);
+                    bs.setUidInfo(myInfo);
 
-                Object myUid = uidObj.get(obj);
-                Integer uid = 0;
-                if (myUid != null) {
-                    uid = (Integer) methodGetUid.invoke(myUid);
+                    myStats.add(bs);
                 }
-
-                bs.setUid(uid);
-                UidInfo myInfo = UidNameResolver.getInstance(mContext).getNameForUid(uid);
-                bs.setUidInfo(myInfo);
-
-                myStats.add(bs);
+            } catch (Exception e) {
+                LogUtil.e(TAG, "An exception occured in getUsageList(): ", e);
             }
-        } catch (Exception e) {
-            LogUtil.e(TAG, "An exception occured in getUsageList(). Message: " + e.getMessage() + ", cause: " + Log.getStackTraceString(e));
         }
-
 
         return myStats;
     }

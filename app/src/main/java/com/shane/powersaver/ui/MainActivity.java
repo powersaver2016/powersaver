@@ -1,7 +1,5 @@
 package com.shane.powersaver.ui;
 
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -19,19 +17,11 @@ import android.widget.Toast;
 import com.shane.android.common.utils.SysUtils;
 import com.shane.powersaver.AppContext;
 import com.shane.powersaver.R;
-import com.shane.powersaver.bean.base.Constants;
-import com.shane.powersaver.bean.kernel.SummaryStatsDumpsys;
-import com.shane.powersaver.bean.kernel.WakeupSources;
-import com.shane.powersaver.cloudcontrol.CloudUpdateReceiver;
 import com.shane.powersaver.interf.BaseViewInterface;
 import com.shane.powersaver.interf.OnTabReselectListener;
-import com.shane.powersaver.util.AlarmHelper;
 import com.shane.powersaver.util.LogUtil;
 import com.shane.powersaver.util.RootShell;
 import com.shane.powersaver.widget.MyFragmentTabHost;
-import com.squareup.leakcanary.LeakCanary;
-
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

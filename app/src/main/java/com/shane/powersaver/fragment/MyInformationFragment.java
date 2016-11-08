@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.shane.powersaver.AppContext;
 import com.shane.powersaver.R;
 import com.shane.powersaver.base.BaseFragment;
 import com.shane.powersaver.bean.User;
@@ -26,7 +25,6 @@ import com.shane.powersaver.util.StringUtils;
 import com.shane.powersaver.widget.AvatarView;
 import com.shane.powersaver.widget.BadgeView;
 
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 import java.lang.ref.WeakReference;
 

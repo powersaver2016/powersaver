@@ -1,13 +1,5 @@
 package com.shane.powersaver.provider;
 
-import java.io.File;
-
-import java.util.HashMap;
-import java.util.List;
-
-
-import com.shane.powersaver.AppContext;
-
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -18,11 +10,11 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import android.os.Binder;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.os.UserHandle;
 import android.util.Log;
+
+import com.shane.powersaver.AppContext;
 
 public class PowerSaverConfigureProvider extends ContentProvider {
     private static final String TAG = PowerSaverConfigureProvider.class.getSimpleName();

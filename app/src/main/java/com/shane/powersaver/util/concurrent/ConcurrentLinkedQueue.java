@@ -1,4 +1,3 @@
-
 package com.shane.powersaver.util.concurrent;
 
 import java.util.Iterator;

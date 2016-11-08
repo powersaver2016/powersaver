@@ -1,6 +1,5 @@
 package com.shane.powersaver.fragment.general;
 
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,7 +13,6 @@ import com.shane.powersaver.bean.base.State;
 import com.shane.powersaver.bean.kernel.CpuStates;
 import com.shane.powersaver.bean.news.News;
 import com.shane.powersaver.ui.empty.EmptyLayout;
-import com.shane.powersaver.widget.ViewNewsHeader;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;

@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.shane.powersaver.bean.kernel;
 
 import java.util.ArrayList;

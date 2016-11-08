@@ -7,8 +7,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 import android.os.Looper;
 
-import com.shane.powersaver.util.UIHelper;
-
 import org.kymjs.kjframe.utils.FileUtils;
 import org.kymjs.kjframe.utils.SystemTool;
 

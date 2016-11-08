@@ -114,16 +114,18 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        RequestManager manager = mImgLoader;
-        if (manager != null)
-            manager.onDestroy();
-        mRoot = null;
-        mBundle = null;
         if (mBackgroundHandler != null) {
             mBackgroundHandler.removeCallbacksAndMessages(null);
             mBackgroundHandler.getLooper().quit();
             mBackgroundHandler = null;
         }
+
+        RequestManager manager = mImgLoader;
+        if (manager != null)
+            manager.onDestroy();
+        mRoot = null;
+        mBundle = null;
+
     }
 
     protected abstract int getLayoutId();

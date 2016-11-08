@@ -1,4 +1,3 @@
-
 package com.shane.powersaver.util;
 
 class ContainerHelpers {

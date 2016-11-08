@@ -1,7 +1,6 @@
 package com.shane.powersaver.fragment.general;
 
 import android.os.Build;
-import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.AdapterView;
@@ -18,7 +17,7 @@ import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypesLolipop;
 import com.shane.powersaver.bean.news.News;
 import com.shane.powersaver.ui.empty.EmptyLayout;
-import com.shane.powersaver.widget.ViewNewsHeader;
+import com.shane.powersaver.util.LogUtil;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -30,13 +29,7 @@ import java.util.Collections;
 public class PowerRankFragment extends GeneralListFragment<BatterySipper> {
     private static final String TAG = PowerRankFragment.class.getSimpleName();
 
-    public static final String HISTORY_NEWS = "history_news";
     private boolean isFirst = true;
-
-    private static final String NEWS_BANNER = "news_banner";
-
-    private ViewNewsHeader mHeaderView;
-    private Handler handler = new Handler();
     ArrayList<BatterySipper> mItems = new ArrayList<BatterySipper>();
 
     @Override
@@ -143,6 +136,7 @@ public class PowerRankFragment extends GeneralListFragment<BatterySipper> {
                 }
             }
         }
+        LogUtil.i(TAG, "size:====" + mItems.size());
     }
 
     protected void updateUI() {
@@ -156,5 +150,6 @@ public class PowerRankFragment extends GeneralListFragment<BatterySipper> {
         setFooterType(TYPE_NO_MORE);
         mRefreshLayout.setNoMoreData();
         mRefreshLayout.setOnRefreshListener(null);
+        mRefreshLayout.setEnabled(false);
     }
 }

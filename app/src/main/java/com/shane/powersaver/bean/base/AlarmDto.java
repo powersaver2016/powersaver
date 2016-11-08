@@ -22,11 +22,6 @@ import java.util.ArrayList;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 
-/**
- * A DTO class for Alarms
- *
- * @author sven
- */
 public class AlarmDto implements Serializable {
 
     // from StatElement

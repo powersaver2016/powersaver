@@ -1,37 +1,20 @@
 package com.shane.powersaver.fragment;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
-import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.shane.android.common.utils.DateUtils;
-import com.shane.android.system.Device;
 import com.shane.powersaver.base.BaseFragment;
-import com.shane.powersaver.bean.base.BatterySipper;
-import com.shane.powersaver.bean.base.NativeKernelWakelock;
-import com.shane.powersaver.bean.base.StatElement;
-import com.shane.powersaver.bean.base.Wakelock;
-import com.shane.powersaver.bean.kernel.BatteryStatsHelper;
-import com.shane.powersaver.bean.kernel.BatteryStatsHelperProxy;
-import com.shane.powersaver.bean.kernel.BatteryStatsProxy;
-import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
-import com.shane.powersaver.bean.kernel.BatteryStatsTypesLolipop;
 import com.shane.powersaver.util.BatteryInfoHelper;
-import com.shane.powersaver.util.FileUtil;
 import com.shane.powersaver.util.LogUtil;
-import com.shane.powersaver.util.TextUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 
 /**

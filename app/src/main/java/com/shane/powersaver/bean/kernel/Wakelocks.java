@@ -1,24 +1,4 @@
-/**
- *
- */
 package com.shane.powersaver.bean.kernel;
-
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import com.shane.android.common.contrib.Shell;
-import com.shane.android.common.contrib.Util;
-
-import com.shane.powersaver.AppContext;
-import com.shane.powersaver.bean.base.NativeKernelWakelock;
-import com.shane.powersaver.bean.base.StatElement;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
@@ -26,6 +6,18 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.SystemClock;
 import android.util.Log;
+
+import com.shane.android.common.contrib.Shell;
+import com.shane.android.common.contrib.Util;
+import com.shane.powersaver.AppContext;
+import com.shane.powersaver.bean.base.NativeKernelWakelock;
+import com.shane.powersaver.bean.base.StatElement;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**

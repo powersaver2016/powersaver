@@ -23,7 +23,9 @@ public class PowerProfileProxy {
     private boolean mEnvReady;
     private Context mContext;
 
-    synchronized public static PowerProfileProxy getInstance(Context ctx) {
+    private double mCapacity;
+
+    public static synchronized PowerProfileProxy getInstance(Context ctx) {
         if (mProxy == null) {
             mProxy = new PowerProfileProxy(ctx);
         }
@@ -47,20 +49,26 @@ public class PowerProfileProxy {
             mClassDefinition = helper;
             mContext = ctx.getApplicationContext();
 
+            mCapacity = getBC();
             mEnvReady = true;
         } catch (Exception e) {
-            LogUtil.e(TAG, "An exception occured in PowerProfileProxy(). Message: " + e.getMessage() + ", cause: " + Log.getStackTraceString(e));
+            LogUtil.e(TAG, "An exception occured in PowerProfileProxy(): ", e);
             mEnvReady = false;
         }
     }
 
     // Mah
     public double getBatteryCapacity() {
+        return mCapacity;
+    }
+
+    // Mah
+    private double getBC() {
         try {
             Method method = mClassDefinition.getMethod("getBatteryCapacity");
             return (Double)method.invoke(mInstance, (Object[])null);
         } catch (Exception e) {
-            LogUtil.e(TAG, "An exception occured in getBatteryCapacity(). Message: " + e.getMessage() + ", cause: " + Log.getStackTraceString(e));
+            LogUtil.e(TAG, "An exception occured in getBatteryCapacity():", e);
             return 3000;
         }
     }

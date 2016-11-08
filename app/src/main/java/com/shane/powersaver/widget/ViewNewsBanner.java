@@ -7,10 +7,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.RequestManager;
-
 import com.shane.powersaver.R;
 import com.shane.powersaver.bean.Banner;
-import com.shane.powersaver.util.UIHelper;
 
 /**
  *

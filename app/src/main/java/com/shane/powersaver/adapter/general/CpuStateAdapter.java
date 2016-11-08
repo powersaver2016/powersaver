@@ -1,6 +1,5 @@
 package com.shane.powersaver.adapter.general;
 
-import android.content.pm.PackageManager;
 import android.widget.ProgressBar;
 
 import com.shane.powersaver.R;
