@@ -82,15 +82,24 @@ public class TopProcessFragment extends GeneralListFragment<State> {
     public void onResume() {
         super.onResume();
         LogUtil.d(TAG, "onResume");
-        mBackgroundHandler.removeMessages(MSG_GET_DATA);
-        mBackgroundHandler.sendEmptyMessage(MSG_GET_DATA);
+        if (mBackgroundHandler != null) {
+            mBackgroundHandler.removeMessages(MSG_GET_DATA);
+            mBackgroundHandler.sendEmptyMessage(MSG_GET_DATA);
+            LogUtil.d(TAG, "onResume======2");
+        }
+
     }
 
     @Override
     public void onPause() {
         super.onPause();
         LogUtil.d(TAG, "onPause");
-        mBackgroundHandler.removeMessages(MSG_GET_DATA);
+        if (mBackgroundHandler != null) {
+            mBackgroundHandler.removeMessages(MSG_GET_DATA);
+        }
+        if (mUiHandler != null) {
+            mUiHandler.removeMessages(MSG_UPDATE_DATA);
+        }
     }
 
     @Override
@@ -110,6 +119,9 @@ public class TopProcessFragment extends GeneralListFragment<State> {
         super.doInBackground(msg);
         switch (msg.what) {
             case MSG_UPDATE_DATA:
+                // The fragment may be destroyed
+                if (getContext() == null) return;
+
                 mAdapter = getListAdapter();
                 mListView.setAdapter(mAdapter);
                 mAdapter.addItem(mStates);
@@ -120,7 +132,10 @@ public class TopProcessFragment extends GeneralListFragment<State> {
                 mRefreshLayout.setNoMoreData();
                 mRefreshLayout.setOnRefreshListener(null);
                 mRefreshLayout.setEnabled(false);
-                mBackgroundHandler.sendEmptyMessageDelayed(MSG_GET_DATA, 2000);
+                if (mBackgroundHandler != null) {
+                    mBackgroundHandler.sendEmptyMessageDelayed(MSG_GET_DATA, 2000);
+                }
+
                 break;
         }
     }

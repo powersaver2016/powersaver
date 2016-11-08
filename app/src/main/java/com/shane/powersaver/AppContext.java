@@ -30,7 +30,7 @@ public class AppContext extends BaseApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        LeakCanary.install(this);
+//        LeakCanary.install(this);
         /*
         // AppException 取消
         Thread.setDefaultUncaughtExceptionHandler(AppException

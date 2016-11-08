@@ -108,11 +108,7 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
-        if (mBackgroundHandler != null) {
-            mBackgroundHandler.removeCallbacksAndMessages(null);
-            mBackgroundHandler.getLooper().quit();
-            mBackgroundHandler = null;
-        }
+
     }
 
     @Override
@@ -123,6 +119,11 @@ public abstract class BaseFragment extends Fragment {
             manager.onDestroy();
         mRoot = null;
         mBundle = null;
+        if (mBackgroundHandler != null) {
+            mBackgroundHandler.removeCallbacksAndMessages(null);
+            mBackgroundHandler.getLooper().quit();
+            mBackgroundHandler = null;
+        }
     }
 
     protected abstract int getLayoutId();
