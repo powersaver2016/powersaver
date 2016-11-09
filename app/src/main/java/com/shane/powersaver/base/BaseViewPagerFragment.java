@@ -57,19 +57,6 @@ public abstract class BaseViewPagerFragment extends BaseFragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        /*
-        mTabStrip = (PagerSlidingTabStrip) view
-                .findViewById(R.id.pager_tabstrip);
-
-        mViewPager = (ViewPager) view.findViewById(R.id.pager);
-
-        mErrorLayout = (EmptyLayout) view.findViewById(R.id.error_layout);
-
-        mTabsAdapter = new ViewPageFragmentAdapter(getChildFragmentManager(),
-                mTabStrip, mViewPager);
-        setScreenPageLimit();
-        onSetupTabAdapter(mTabsAdapter);
-        */
         if (savedInstanceState != null) {
             int pos = savedInstanceState.getInt("position");
             mViewPager.setCurrentItem(pos, true);

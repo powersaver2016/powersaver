@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.shane.powersaver.R;
+import com.shane.powersaver.fragment.BatteryInfo;
+import com.shane.powersaver.util.LogUtil;
 import com.shane.powersaver.widget.PagerSlidingTabStrip;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ import java.util.Map;
 
 @SuppressLint("Recycle")
 public class ViewPageFragmentAdapter extends FragmentStatePagerAdapter {
+    private static final String TAG = ViewPageFragmentAdapter.class.getSimpleName();
 
     private final Context mContext;
     protected PagerSlidingTabStrip mPagerStrip;
@@ -139,6 +142,7 @@ public class ViewPageFragmentAdapter extends FragmentStatePagerAdapter {
             mFragments.put(info.tag, fragment);
         }
 
+        LogUtil.i(TAG, "getItem:" + position);
         return fragment;
     }
 

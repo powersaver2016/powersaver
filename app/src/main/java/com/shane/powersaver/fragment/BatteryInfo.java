@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.shane.powersaver.base.BaseFragment;
 import com.shane.powersaver.util.BatteryInfoHelper;
 import com.shane.powersaver.util.LogUtil;
+import com.shane.powersaver.util.RootShell;
 
 import java.util.ArrayList;
 
@@ -32,9 +33,6 @@ public class BatteryInfo extends BaseFragment {
     private ArrayList<String> mResultStats;
     private static final int TOP = 6;
 
-    public static final String NORMAL_CURRENT_NOW = "/sys/class/power_supply/battery/current_now";
-    public static final String HERMES_CURRENT_NOW = "/sys/class/power_supply/usb/device/FG_Battery_CurrentConsumption";
-
     private BatteryInfoHelper mBatteryInfoHelper;
 
     @Override
@@ -48,20 +46,33 @@ public class BatteryInfo extends BaseFragment {
     public void onResume() {
         super.onResume();
         LogUtil.d(TAG, "onResume");
-        requestData(true);
+//        requestData(true);
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (mBackgroundHandler != null) {
+            mBackgroundHandler.removeMessages(MSG_GET_DATA);
+            if (isVisibleToUser) {
+                mBackgroundHandler.sendEmptyMessage(MSG_GET_DATA);
+            }
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         LogUtil.d(TAG, "onPause");
-        mBackgroundHandler.removeMessages(MSG_GET_DATA);
+        if (mBackgroundHandler != null) {
+            mBackgroundHandler.removeMessages(MSG_GET_DATA);
+        }
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-
+        RootShell.getInstance().run("setenforce 1");
     }
 
     @Override
@@ -129,6 +140,7 @@ public class BatteryInfo extends BaseFragment {
     private void getData() throws Exception {
         mResultStats.clear();
 
+        LogUtil.i(TAG, "CurrentNow");
         mResultStats.add("CurrentNow:" + mBatteryInfoHelper.getBatteryCurrentNow() + "\n");
         mResultStats.add("Capacity:" + mBatteryInfoHelper.getBatteryCapacity() + "\n");
         mResultStats.add("Percent:" + mBatteryInfoHelper.getBatteryPercent() + "\n");
@@ -143,6 +155,7 @@ public class BatteryInfo extends BaseFragment {
     }
 
     private void requestData(boolean refresh) {
+        mBackgroundHandler.removeMessages(MSG_GET_DATA);
         mBackgroundHandler.sendEmptyMessage(MSG_GET_DATA);
     }
 
@@ -154,6 +167,8 @@ public class BatteryInfo extends BaseFragment {
     @Override
     public void initData() {
         mResultStats = new ArrayList<String>();
+        // read CurrentNow
+        RootShell.getInstance().run("setenforce 0");
         mBatteryInfoHelper = BatteryInfoHelper.getInstance(mContext);
     }
 

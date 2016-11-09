@@ -16,6 +16,7 @@ import com.shane.powersaver.fragment.general.GeneralListFragment;
 import com.shane.powersaver.fragment.general.NewsFragment;
 import com.shane.powersaver.fragment.general.PowerRankFragment;
 import com.shane.powersaver.interf.OnTabReselectListener;
+import com.shane.powersaver.util.LogUtil;
 
 /**
  * GeneralViewPagerFragment
@@ -88,6 +89,7 @@ public class GeneralViewPagerFragment extends BaseViewPagerFragment implements
 
     @Override
     public void onTabReselect() {
+        LogUtil.i(TAG, "onTabReselect");
         Fragment fragment = mTabsAdapter.getItem(mViewPager.getCurrentItem());
         if (fragment != null && fragment instanceof GeneralListFragment) {
             ((GeneralListFragment) fragment).onTabReselect();

@@ -28,7 +28,7 @@ import butterknife.ButterKnife;
 
 
 /**
- * LogUtil
+ * MainActivity
  *
  * @author shane（https://github.com/lxxgreat）
  * @version 1.0
