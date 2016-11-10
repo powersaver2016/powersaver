@@ -70,7 +70,9 @@
     <string name="power_idle" product="default">"手机待机"</string>
 
     <string name="process_kernel_label">"Android OS"</string>
+    <string name="process_system_label">"Android 系统"</string>
     <string name="process_mediaserver_label">"媒体服务器"</string>
+    <string name="invalid_arguments">"无效参数"</string>
 
 
     <string name="blog">我的电量日志</string>

@@ -6,11 +6,14 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.google.gson.reflect.TypeToken;
+import com.shane.powersaver.AppContext;
 import com.shane.powersaver.adapter.base.BaseListAdapter;
 import com.shane.powersaver.adapter.general.PowerRankAdapter;
 import com.shane.powersaver.bean.base.BatterySipper;
+import com.shane.powersaver.bean.base.Constants;
 import com.shane.powersaver.bean.base.PageBean;
 import com.shane.powersaver.bean.base.ResultBean;
+import com.shane.powersaver.bean.kernel.BatterySipperResourceHelper;
 import com.shane.powersaver.bean.kernel.BatteryStatsHelperProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsProxy;
 import com.shane.powersaver.bean.kernel.BatteryStatsTypes;
@@ -131,12 +134,34 @@ public class PowerRankFragment extends GeneralListFragment<BatterySipper> {
             if (sipper.getRatio() < 1) {
                 break;
             } else {
-                if (sipper.getRatio() < 100) {
+                if (filter(sipper)) {
                     mItems.add(sipper);
                 }
             }
         }
         LogUtil.i(TAG, "size:====" + mItems.size());
+    }
+
+    private boolean filter(final BatterySipper sipper) {
+        if (sipper.getRatio() < 100) {
+            if (sipper.getPackageName().isEmpty()) {
+                if (sipper.getuid() > Constants.FIRST_APPLICATION_UID) {
+                    // The APP had been removed
+                    return false;
+                }
+
+                if (BatterySipperResourceHelper.getDisplayName(
+                        AppContext.context(), sipper).
+                        equals(BatterySipperResourceHelper.UNKNOWN_TYPE)) {
+                    return false;
+                }
+                return true;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     protected void updateUI() {

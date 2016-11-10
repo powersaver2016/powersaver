@@ -2,18 +2,21 @@ package com.shane.powersaver.bean.kernel;
 
 import android.content.Context;
 import android.text.TextUtils;
+
+import com.shane.powersaver.AppContext;
 import com.shane.powersaver.R;
 import com.shane.powersaver.bean.base.BatterySipper;
 import com.shane.powersaver.bean.base.UidNameResolver;
 
 /**
- *
  * @author shane（https://github.com/lxxgreat）
  * @version 1.0
  * @created 2016-08-07
  */
 public class BatterySipperResourceHelper {
-    private static final String TAG = "BatterySipperResourceHelper";
+    private static final String TAG = BatterySipperResourceHelper.class.getSimpleName();
+
+    public static final String UNKNOWN_TYPE = "Unknown";
 
     public static int getIconId(BatterySipper sipper) {
         switch (sipper.drainType) {
@@ -84,15 +87,17 @@ public class BatterySipperResourceHelper {
             default:
                 break;
         }
-        return "Unknown";
+        return UNKNOWN_TYPE;
     }
 
     private static String getAppDisplayName(Context context, BatterySipper sipper) {
-        if (sipper.getuid() == 0) {
-            return context.getResources().getString(R.string.process_kernel_label);
-        }
-        else if (sipper.getuid() == 1013) {
-            return context.getResources().getString(R.string.process_mediaserver_label);
+        switch (sipper.getuid()) {
+            case 0:
+                return getString(R.string.process_kernel_label);
+            case 1013:
+                return getString(R.string.process_mediaserver_label);
+            case 1000:
+                return getString(R.string.process_system_label);
         }
 
         String label = UidNameResolver.getInstance(context).getLabel(sipper.getPackageName());
@@ -100,5 +105,9 @@ public class BatterySipperResourceHelper {
             return label;
         }
         return "";
+    }
+
+    private static String getString(int resId) {
+        return AppContext.getResString(resId);
     }
 }

@@ -41,6 +41,12 @@ public class AppContext extends BaseApplication {
     public static Context getContext() {
         return BaseApplication._context;
     }
+
+    public static String getResString(int resId) {
+        resId = resId > 0 ? resId: R.string.invalid_arguments;
+        return _context.getString(resId);
+    }
+
     /**
      * 获取App安装包信息
      *

@@ -45,9 +45,9 @@ public class BatteryStatsProxy {
     /*
      * Instance of the BatteryStatsImpl
      */
-    private Object m_Instance = null;
+    private Object mInstance = null;
     @SuppressWarnings("rawtypes")
-    private Class m_ClassDefinition = null;
+    private Class mClassDefinition = null;
 
     private static final String TAG = "BatteryStatsProxy";
 
@@ -72,18 +72,18 @@ public class BatteryStatsProxy {
     /**
      * An instance to the UidNameResolver
      */
-    private static BatteryStatsProxy m_proxy = null;
+    private static BatteryStatsProxy mProxy = null;
 
     synchronized public static BatteryStatsProxy getInstance(Context ctx) {
-        if (m_proxy == null) {
-            m_proxy = new BatteryStatsProxy(ctx);
+        if (mProxy == null) {
+            mProxy = new BatteryStatsProxy(ctx);
         }
 
-        return m_proxy;
+        return mProxy;
     }
 
     public void invalidate() {
-        m_proxy = null;
+        mProxy = null;
     }
 
     /**
@@ -126,7 +126,7 @@ public class BatteryStatsProxy {
         try {
             ClassLoader cl = context.getClassLoader();
 
-            m_ClassDefinition = cl.loadClass("com.android.internal.os.BatteryStatsImpl");
+            mClassDefinition = cl.loadClass("com.android.internal.os.BatteryStatsImpl");
 
             // get the IBinder to the "batteryinfo" service
             @SuppressWarnings("rawtypes")
@@ -204,10 +204,10 @@ public class BatteryStatsProxy {
             @SuppressWarnings("rawtypes")
             Parcelable.Creator batteryStatsImpl_CREATOR = (Parcelable.Creator) creatorField.get(batteryStatsImpl);
 
-            m_Instance = batteryStatsImpl_CREATOR.createFromParcel(parcel);
+            mInstance = batteryStatsImpl_CREATOR.createFromParcel(parcel);
         } catch (Exception e) {
             LogUtil.e(TAG, "An exception occured in BatteryStatsProxy()", e);
-            m_Instance = null;
+            mInstance = null;
         }
     }
 
@@ -217,16 +217,16 @@ public class BatteryStatsProxy {
      * @return true if the proxy wasn't initialized
      */
     public boolean initFailed() {
-        return m_Instance == null;
+        return mInstance == null;
     }
 
 
     public Object getBatteryStatsInstance() {
-        return m_Instance;
+        return mInstance;
     }
 
     public Class getBatteryStatsClass() {
-        return m_ClassDefinition;
+        return mClassDefinition;
     }
 
     /**
@@ -246,14 +246,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("computeBatteryRealtime", paramTypes);
+            Method method = mClassDefinition.getMethod("computeBatteryRealtime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(curTime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -283,14 +283,14 @@ public class BatteryStatsProxy {
 
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getBatteryRealtime", paramTypes);
+            Method method = mClassDefinition.getMethod("getBatteryRealtime", paramTypes);
 
             //Parameters
             Object[] params = new Object[1];
             params[0] = new Long(curTime);
 
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -321,14 +321,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("computeBatteryUptime", paramTypes);
+            Method method = mClassDefinition.getMethod("computeBatteryUptime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(curTime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -359,14 +359,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getScreenOnTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getScreenOnTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -395,10 +395,10 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getIsOnBattery", paramTypes);
+            Method method = mClassDefinition.getMethod("getIsOnBattery", paramTypes);
 
 
-            ret = (Boolean) method.invoke(m_Instance);
+            ret = (Boolean) method.invoke(mInstance);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -429,14 +429,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getPhoneOnTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getPhoneOnTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -467,19 +467,16 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getWifiOnTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getWifiOnTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
-            if (AppContext.DEBUG) {
-                Log.i(TAG, "getWifiOnTime with params " + params[0] + " and " + params[1] + " returned " + ret);
-            }
-
+            LogUtil.i(TAG, "getWifiOnTime with params " + params[0] + " and " + params[1] + " returned " + ret);
         } catch (IllegalArgumentException e) {
             throw e;
         } catch (Exception e) {
@@ -508,14 +505,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getGlobalWifiRunningTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getGlobalWifiRunningTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
             if (AppContext.DEBUG) {
                 Log.i(TAG, "getGlobalWifiRunningTime with params " + params[0] + " and " + params[1] + " returned " + ret);
@@ -749,7 +746,7 @@ public class BatteryStatsProxy {
             paramTypes[2] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getPhoneDataConnectionTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getPhoneDataConnectionTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[3];
@@ -757,7 +754,7 @@ public class BatteryStatsProxy {
             params[1] = new Long(batteryRealtime);
             params[2] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
             if (AppContext.DEBUG) {
                 Log.i(TAG, "getPhoneDataConnectionTime with params " + params[0] + ", " + params[1] + "and " + params[2] + " returned " + ret);
             }
@@ -792,7 +789,7 @@ public class BatteryStatsProxy {
             paramTypes[2] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getPhoneDataConnectionTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getPhoneDataConnectionTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[3];
@@ -800,7 +797,7 @@ public class BatteryStatsProxy {
             params[1] = new Long(batteryRealtime);
             params[2] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
             if (AppContext.DEBUG) {
                 Log.i(TAG, "getPhoneSignalStrengthTime with params " + params[0] + ", " + params[1] + "and " + params[2] + " returned " + ret);
             }
@@ -832,7 +829,7 @@ public class BatteryStatsProxy {
             paramTypes[2] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getScreenBrightnessTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getScreenBrightnessTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[3];
@@ -840,7 +837,7 @@ public class BatteryStatsProxy {
             params[1] = new Long(batteryRealtime);
             params[2] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
             if (AppContext.DEBUG) {
                 Log.i(TAG, "getScreenBrightnessTime with params " + params[0] + ", " + params[1] + "and " + params[2] + " returned " + ret);
             }
@@ -1040,14 +1037,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getBluetoothOnTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getBluetoothOnTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -1081,14 +1078,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getBluetoothControllerActivity", paramTypes);
+            Method method = mClassDefinition.getMethod("getBluetoothControllerActivity", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Integer(state);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -1120,14 +1117,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getPowerSaveModeEnabledTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getPowerSaveModeEnabledTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -1159,14 +1156,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getDeviceIdleModeEnabledTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getDeviceIdleModeEnabledTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -1198,14 +1195,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getInteractiveTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getInteractiveTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -1237,14 +1234,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getDeviceIdlingTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getDeviceIdlingTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -1277,14 +1274,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getNetworkActivityBytes", paramTypes);
+            Method method = mClassDefinition.getMethod("getNetworkActivityBytes", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Integer(type);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -1317,14 +1314,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getPhoneSignalScanningTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getPhoneSignalScanningTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -1355,14 +1352,14 @@ public class BatteryStatsProxy {
             paramTypes[1] = int.class;
 
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getMobileRadioActiveTime", paramTypes);
+            Method method = mClassDefinition.getMethod("getMobileRadioActiveTime", paramTypes);
 
             //Parameters
             Object[] params = new Object[2];
             params[0] = new Long(batteryRealtime);
             params[1] = new Integer(iStatsType);
 
-            ret = (Long) method.invoke(m_Instance, params);
+            ret = (Long) method.invoke(mInstance, params);
 
         } catch (IllegalArgumentException e) {
             throw e;
@@ -1383,9 +1380,9 @@ public class BatteryStatsProxy {
 
         try {
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getDischargeCurrentLevel");
+            Method method = mClassDefinition.getMethod("getDischargeCurrentLevel");
 
-            Integer oRet = (Integer) method.invoke(m_Instance);
+            Integer oRet = (Integer) method.invoke(mInstance);
             ret = oRet.intValue();
 
         } catch (IllegalArgumentException e) {
@@ -1407,9 +1404,9 @@ public class BatteryStatsProxy {
 
         try {
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getDischargeAmountScreenOnSinceCharge");
+            Method method = mClassDefinition.getMethod("getDischargeAmountScreenOnSinceCharge");
 
-            Integer oRet = (Integer) method.invoke(m_Instance);
+            Integer oRet = (Integer) method.invoke(mInstance);
             ret = oRet.intValue();
 
         } catch (IllegalArgumentException e) {
@@ -1431,9 +1428,9 @@ public class BatteryStatsProxy {
 
         try {
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("getDischargeAmountScreenOffSinceCharge");
+            Method method = mClassDefinition.getMethod("getDischargeAmountScreenOffSinceCharge");
 
-            Integer oRet = (Integer) method.invoke(m_Instance);
+            Integer oRet = (Integer) method.invoke(mInstance);
             ret = oRet.intValue();
 
         } catch (IllegalArgumentException e) {
@@ -1454,9 +1451,9 @@ public class BatteryStatsProxy {
 
         try {
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("startIteratingHistoryLocked");
+            Method method = mClassDefinition.getMethod("startIteratingHistoryLocked");
 
-            ret = (Boolean) method.invoke(m_Instance);
+            ret = (Boolean) method.invoke(mInstance);
 
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "An exception occured in startIteratingHistoryLocked(). Message: " + e.getMessage() + ", cause: " + e.getCause().getMessage());
@@ -1479,9 +1476,9 @@ public class BatteryStatsProxy {
 
         try {
             @SuppressWarnings("unchecked")
-            Method method = m_ClassDefinition.getMethod("finishIteratingHistoryLocked");
+            Method method = mClassDefinition.getMethod("finishIteratingHistoryLocked");
 
-            ret = (Boolean) method.invoke(m_Instance);
+            ret = (Boolean) method.invoke(mInstance);
 
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "An exception occured in finishIteratingHistoryLocked(). Message: " + e.getMessage() + ", cause: " + e.getCause().getMessage());
@@ -1502,9 +1499,9 @@ public class BatteryStatsProxy {
     @SuppressWarnings("unchecked")
     private void collectUidStats() {
         try {
-            Method method = m_ClassDefinition.getMethod("getUidStats");
+            Method method = mClassDefinition.getMethod("getUidStats");
 
-            m_uidStats = (SparseArray<? extends Object>) method.invoke(m_Instance);
+            m_uidStats = (SparseArray<? extends Object>) method.invoke(mInstance);
 
         } catch (IllegalArgumentException e) {
             Log.e(TAG, "An exception occured in collectUidStats(). Message: " + e.getMessage() + ", cause: " + e.getCause().getMessage());
@@ -1727,7 +1724,7 @@ public class BatteryStatsProxy {
 
 
             // Map of String, BatteryStatsImpl.SamplingTimer
-            Map<String, ? extends Object> kernelWakelockStats = (Map<String, ? extends Object>) methodGetKernelWakelockStats.invoke(m_Instance);
+            Map<String, ? extends Object> kernelWakelockStats = (Map<String, ? extends Object>) methodGetKernelWakelockStats.invoke(mInstance);
 
 
             // Map of String, BatteryStats.Uid.Wakelock
@@ -2288,10 +2285,10 @@ public class BatteryStatsProxy {
         try {
             @SuppressWarnings("unchecked")
             // we must use getDeclaredMethod as that method is private
-                    Method method = m_ClassDefinition.getDeclaredMethod("getNetworkStatsDetailGroupedByUid");
+                    Method method = mClassDefinition.getDeclaredMethod("getNetworkStatsDetailGroupedByUid");
             method.setAccessible(true);
 
-            Object networkStats = method.invoke(m_Instance);
+            Object networkStats = method.invoke(mInstance);
             String myRes = "tada";
         } catch (Exception e) {
             myRet = null;
@@ -2325,7 +2322,7 @@ public class BatteryStatsProxy {
 
 
             @SuppressWarnings("unchecked")
-            Method methodNext = m_ClassDefinition.getMethod("getNextHistoryLocked", paramTypes);
+            Method methodNext = mClassDefinition.getMethod("getNextHistoryLocked", paramTypes);
 
             //Parameters
             Object[] params = new Object[1];
@@ -2353,7 +2350,7 @@ public class BatteryStatsProxy {
 
             if (this.startIteratingHistoryLocked()) {
                 params[0] = myHistoryItem;
-                Boolean bNext = (Boolean) methodNext.invoke(m_Instance, params);
+                Boolean bNext = (Boolean) methodNext.invoke(mInstance, params);
                 while (bNext) {
                     // process stats: create HistoryItems from params
                     Field timeField = classHistoryItem.getField("time");            // long
@@ -2440,7 +2437,7 @@ public class BatteryStatsProxy {
                         Log.d(TAG, "Skipped item");
                     }
 
-                    bNext = (Boolean) methodNext.invoke(m_Instance, params);
+                    bNext = (Boolean) methodNext.invoke(mInstance, params);
                 }
 
                 // norm the time of each sample
@@ -2494,7 +2491,7 @@ public class BatteryStatsProxy {
 
 
             @SuppressWarnings("unchecked")
-            Method methodNext = m_ClassDefinition.getMethod("getNextHistoryLocked", paramTypes);
+            Method methodNext = mClassDefinition.getMethod("getNextHistoryLocked", paramTypes);
 
             //Parameters
             Object[] params = new Object[1];
@@ -2523,7 +2520,7 @@ public class BatteryStatsProxy {
 
             if (this.startIteratingHistoryLocked()) {
                 params[0] = myHistoryItem;
-                Boolean bNext = (Boolean) methodNext.invoke(m_Instance, params);
+                Boolean bNext = (Boolean) methodNext.invoke(mInstance, params);
                 while (bNext) {
                     // process stats: create HistoryItems from params
                     Field timeField = classHistoryItem.getField("time");            // long
@@ -2595,7 +2592,7 @@ public class BatteryStatsProxy {
                         Log.d(TAG, "Skipped item");
                     }
 
-                    bNext = (Boolean) methodNext.invoke(m_Instance, params);
+                    bNext = (Boolean) methodNext.invoke(mInstance, params);
                 }
 
                 // norm the time of each sample

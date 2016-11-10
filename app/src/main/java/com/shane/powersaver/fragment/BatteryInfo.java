@@ -31,7 +31,6 @@ public class BatteryInfo extends BaseFragment {
     private TextView mTextView;
     private Context mContext;
     private ArrayList<String> mResultStats;
-    private static final int TOP = 6;
 
     private BatteryInfoHelper mBatteryInfoHelper;
 
@@ -119,7 +118,6 @@ public class BatteryInfo extends BaseFragment {
                     getData();
                     mUiHandler.sendEmptyMessage(MSG_UPDATE_DATA);
                 } catch (Exception e) {
-
                 }
 
                 break;

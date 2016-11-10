@@ -44,7 +44,7 @@ public class BatteryHistorian2 extends BaseFragment {
     private TextView mTextView;
     private Context mContext;
     private ArrayList<String> mResultStats;
-    private static final int TOP = 6;
+    private static final int TOP = 20;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,6 +129,7 @@ public class BatteryHistorian2 extends BaseFragment {
     }
 
     private void getData() throws Exception {
+        mResultStats.clear();
         ArrayList<StatElement> myStats = new ArrayList<StatElement>();
         // List to store the other usages to
         ArrayList<StatElement> myUsages = new ArrayList<StatElement>();
