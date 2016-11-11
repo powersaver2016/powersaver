@@ -2,6 +2,7 @@ package com.shane.powersaver.ui;
 
 import com.shane.powersaver.R;
 import com.shane.powersaver.fragment.MyInformationFragment;
+import com.shane.powersaver.fragment.PowerDiagnosisFragment;
 import com.shane.powersaver.fragment.TopProcessFragment;
 import com.shane.powersaver.viewpagerfragment.GeneralViewPagerFragment;
 
@@ -12,7 +13,7 @@ public enum MainTab {
             GeneralViewPagerFragment.class),
 
     TWEET(1, R.string.main_tab_name_tweet, R.drawable.tab_icon_tweet,
-            GeneralViewPagerFragment.class),
+            PowerDiagnosisFragment.class),
 
     QUICK(2, R.string.main_tab_name_quick, R.drawable.tab_icon_new,
             null),
